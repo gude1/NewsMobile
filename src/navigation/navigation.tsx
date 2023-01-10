@@ -10,7 +10,7 @@ import {LightTheme} from '../theme';
 const Stack = createNativeStackNavigator();
 
 const AuthNavigator = (): JSX.Element => {
-  const {colors} = useTheme();
+  const {colors, dark} = useTheme();
   return (
     <Stack.Navigator
       initialRouteName="Login"
@@ -21,7 +21,7 @@ const AuthNavigator = (): JSX.Element => {
           // fontFamily: 'sans-serif-condensed',
         },
         statusBarColor: colors.background,
-        statusBarStyle: 'dark',
+        statusBarStyle: dark ? 'light' : 'dark',
       }}>
       <Stack.Screen
         name="LogIn"
@@ -42,8 +42,19 @@ const AuthNavigator = (): JSX.Element => {
 };
 
 const RootNavigator = (): JSX.Element => {
+  const {colors, dark} = useTheme();
+
   return (
-    <Stack.Navigator initialRouteName="NewsList">
+    <Stack.Navigator
+      initialRouteName="NewsList"
+      screenOptions={{
+        headerShadowVisible: false,
+        headerTitleStyle: {
+          fontWeight: '700',
+        },
+        statusBarColor: colors.background,
+        statusBarStyle: dark ? 'light' : 'dark',
+      }}>
       <Stack.Screen name="NewsList" component={NewsList} />
       <Stack.Screen name="NewsDetail" component={NewsDetail} />
     </Stack.Navigator>

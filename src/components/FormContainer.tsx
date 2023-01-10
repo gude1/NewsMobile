@@ -36,18 +36,18 @@ export default FormContainer;
 const styles = StyleSheet.create({
   form: {
     // borderWidth: 1,
-    width: '95%',
-    marginTop: 100,
+    width: '90%',
+    marginTop: 80,
   },
   formDescCtn: {
     // borderWidth: 1,
-    textAlign: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     borderColor: 'red',
     minHeight: 30,
   },
   title: {},
   description: {
     marginTop: 10,
+    fontWeight: '400',
   },
 });
