@@ -1,24 +1,27 @@
 import {useColorScheme} from 'react-native';
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from '@react-navigation/native';
+import {NavigationContainer, useTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Login} from '../screens/auth/Login';
 import {Signup} from '../screens/auth/Signup';
 import {NewsDetail} from '../screens/NewsDetail';
 import {NewsList} from '../screens/NewsList';
+import {LightTheme} from '../theme';
 
 const Stack = createNativeStackNavigator();
 
 const AuthNavigator = (): JSX.Element => {
+  const {colors} = useTheme();
   return (
     <Stack.Navigator
       initialRouteName="Login"
       screenOptions={{
         headerShadowVisible: false,
-        headerTitleStyle: {},
+        headerTitleStyle: {
+          fontWeight: '700',
+          // fontFamily: 'sans-serif-condensed',
+        },
+        statusBarColor: colors.background,
+        statusBarStyle: 'dark',
       }}>
       <Stack.Screen
         name="LogIn"
@@ -51,7 +54,7 @@ const Navigation = () => {
   const scheme = useColorScheme();
 
   return (
-    <NavigationContainer theme={DefaultTheme}>
+    <NavigationContainer theme={LightTheme}>
       <AuthNavigator />
     </NavigationContainer>
   );

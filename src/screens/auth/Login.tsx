@@ -11,7 +11,7 @@ export const Login = ({}: LoginProps): JSX.Element => {
   return (
     <View style={styles.container}>
       <FormContainer
-        title="Log In"
+        title="Hello there"
         description="Please Sign In with your Google Account">
         <Input />
         <Input />
