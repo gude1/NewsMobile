@@ -1,4 +1,9 @@
-import {NavigationContainer} from '@react-navigation/native';
+import {useColorScheme} from 'react-native';
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Login} from '../screens/auth/Login';
 import {Signup} from '../screens/auth/Signup';
@@ -9,9 +14,26 @@ const Stack = createNativeStackNavigator();
 
 const AuthNavigator = (): JSX.Element => {
   return (
-    <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen name="LogIn" component={Login} />
-      <Stack.Screen name="SignUp" component={Signup} />
+    <Stack.Navigator
+      initialRouteName="Login"
+      screenOptions={{
+        headerShadowVisible: false,
+        headerTitleStyle: {},
+      }}>
+      <Stack.Screen
+        name="LogIn"
+        component={Login}
+        options={{
+          title: 'Sign In',
+        }}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={Signup}
+        options={{
+          title: 'Sign Up',
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -26,8 +48,10 @@ const RootNavigator = (): JSX.Element => {
 };
 
 const Navigation = () => {
+  const scheme = useColorScheme();
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={DefaultTheme}>
       <AuthNavigator />
     </NavigationContainer>
   );
