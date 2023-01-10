@@ -5,7 +5,7 @@ import {Login} from '../screens/auth/Login';
 import {Signup} from '../screens/auth/Signup';
 import {NewsDetail} from '../screens/NewsDetail';
 import {NewsList} from '../screens/NewsList';
-import {LightTheme} from '../theme';
+import {LightTheme, DarkTheme} from '../theme';
 
 const Stack = createNativeStackNavigator();
 
