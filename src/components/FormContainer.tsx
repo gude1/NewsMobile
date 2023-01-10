@@ -9,6 +9,8 @@ type FormContainerProps = {
   style?: object;
   title?: string;
   description?: string;
+  onSubmitTitle?: string;
+  onSubmitHide?: boolean;
   onSubmit?: () => void;
 };
 
@@ -18,6 +20,8 @@ const FormContainer = ({
   title = 'Hello',
   description = 'Please Sign In with your Google Account',
   onSubmit,
+  onSubmitTitle,
+  onSubmitHide = false,
 }: FormContainerProps): JSX.Element => {
   const {colors, dark} = useTheme();
 
@@ -33,10 +37,13 @@ const FormContainer = ({
       </View>
       {children}
       <Button
-        title="Sign In"
+        title={onSubmitTitle || 'Sign In'}
         onPress={onSubmit}
         titleStyle={[styles.actionBtnTitle, {color: dark ? '#000' : '#fff'}]}
-        containerStyle={styles.actionBtnCtn}
+        containerStyle={[
+          styles.actionBtnCtn,
+          onSubmitHide && {display: 'none'},
+        ]}
         buttonStyle={[
           styles.actionBtn,
           {

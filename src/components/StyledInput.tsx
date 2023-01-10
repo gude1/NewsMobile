@@ -1,9 +1,31 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  StyleProp,
+  TextInputProps,
+  ViewProps,
+} from 'react-native';
 import React from 'react';
 import {Input, InputProps} from '@rneui/themed';
 import {useTheme} from '@react-navigation/native';
 
-const StyledInput = (props: object): JSX.Element => {
+// interface StyledInputProps extends InputProps {}
+
+const StyledInput = ({
+  placeholder = 'Please enter your name',
+  label = 'Name',
+  keyboardType = 'name-phone-pad',
+  selectionColor = '#a5b4fc',
+  cursorColor = '#a5b4fc',
+  placeholderTextColor = '#6b7280',
+  errorMessage = '',
+  rightIcon = {},
+  leftIcon = {},
+  ref = null,
+  multiline = false,
+  maxLength = 30,
+}: InputProps) => {
   const {colors, dark} = useTheme();
   return (
     <Input
@@ -12,17 +34,18 @@ const StyledInput = (props: object): JSX.Element => {
         styles.inputContainer,
         {borderColor: colors.border},
       ]}
-      keyboardType="name-phone-pad"
+      keyboardType={keyboardType}
       inputStyle={[styles.input, {color: dark ? '#fff' : '#000'}]}
-      label="Name"
+      label={label}
       labelStyle={[styles.label, {color: colors.text}]}
-      placeholder="Please enter your name"
-      selectionColor={'#a5b4fc'}
-      cursorColor="#a5b4fc"
-      placeholderTextColor={'#6b7280'}
-      //   errorMessage="Hmm"
-      //   rightIcon={{type: 'font-awesome', name: 'comment', color: colors.text}}
-      {...props}
+      placeholder={placeholder}
+      selectionColor={selectionColor}
+      cursorColor={cursorColor}
+      maxLength={maxLength}
+      placeholderTextColor={placeholderTextColor}
+      errorMessage={errorMessage}
+      rightIcon={rightIcon}
+      leftIcon={leftIcon}
     />
   );
 };
