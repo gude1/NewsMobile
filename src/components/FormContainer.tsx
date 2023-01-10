@@ -17,6 +17,7 @@ const FormContainer = ({
   style,
   title = 'Hello',
   description = 'Please Sign In with your Google Account',
+  onSubmit,
 }: FormContainerProps): JSX.Element => {
   const {colors, dark} = useTheme();
 
@@ -33,6 +34,7 @@ const FormContainer = ({
       {children}
       <Button
         title="Sign In"
+        onPress={onSubmit}
         titleStyle={[styles.actionBtnTitle, {color: dark ? '#000' : '#fff'}]}
         containerStyle={styles.actionBtnCtn}
         buttonStyle={[
@@ -75,5 +77,6 @@ const styles = StyleSheet.create({
   },
   actionBtnCtn: {
     marginTop: 40,
+    marginBottom: 20,
   },
 });

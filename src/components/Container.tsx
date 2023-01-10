@@ -1,14 +1,25 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, ScrollView, View} from 'react-native';
 import React from 'react';
 
-const Container = ({style, children}): JSX.Element => {
+type ContainerProps = {
+  style?: object;
+  children: JSX.Element;
+};
+
+const Container = ({style, children}: ContainerProps): JSX.Element => {
   return (
-    <View>
-      <Text>Container</Text>
-    </View>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps={'always'}>
+      <View style={[styles.container, style]}>{children}</View>
+    </ScrollView>
   );
 };
 
 export default Container;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
