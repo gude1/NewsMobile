@@ -6,7 +6,7 @@ type NewsListProps = {};
 export const NewsList = ({}: NewsListProps): JSX.Element => {
   return (
     <View>
-      <Text>Signup</Text>
+      <Text>NewsList</Text>
     </View>
   );
 };

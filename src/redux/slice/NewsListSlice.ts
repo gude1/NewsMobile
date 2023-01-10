@@ -1,11 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
-import type {PayloadAction} from '@reduxjs/toolkit';
 
-export interface NewsListState {}
+export type NewsListState = {};
 
-const initialState: NewsListState = {
-  value: 0,
-};
+const initialState: NewsListState = {};
 
 export const NewsListSlice = createSlice({
   name: 'newslist',

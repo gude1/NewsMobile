@@ -6,12 +6,17 @@ import FormContainer from '../../components/FormContainer';
 import StyledInput from '../../components/StyledInput';
 import Container from '../../components/Container';
 import {RootStackParamList} from '../../navigation/navigation';
+import {setUser} from '../../redux/slice/UserSlice';
+import {useAppDispatch, useAppSelector} from '../../hooks/hook';
 
 type SignupProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
 
 const Signup = ({navigation, route}: SignupProps): JSX.Element => {
   const {colors} = useTheme();
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
+  const user = useAppSelector(state => state.user);
+  const dispatch = useAppDispatch();
+  console.log('user', user);
 
   const renderView = () => {
     if (step == 1) {
@@ -19,7 +24,14 @@ const Signup = ({navigation, route}: SignupProps): JSX.Element => {
         <FormContainer
           title="Create an account"
           description="Please fill the inputs with your details"
-          onSubmitTitle="Sign Up">
+          onSubmitTitle="Sign Up"
+          onSubmit={() => {
+            dispatch(
+              setUser({
+                loggedIn: true,
+              }),
+            );
+          }}>
           <StyledInput label="Full Name" placeholder="eg: John Doe" />
           <StyledInput
             label="Phone Number"
