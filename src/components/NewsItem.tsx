@@ -3,28 +3,36 @@ import {useTheme} from '@react-navigation/native';
 import {Text, Avatar} from '@rneui/themed';
 import React from 'react';
 
-type NewsItemProps = {};
+type NewsItemProps = {
+  topic?: string;
+  title?: string;
+  date?: string;
+};
 
-const NewsItem = ({}: NewsItemProps): JSX.Element => {
+const NewsItem = ({
+  topic = 'Sports',
+  title = 'Chelsea beat Arsenal 3-0 in Carabo cup game on wednesday',
+  date = '22, Jan 2023',
+}: NewsItemProps): JSX.Element => {
   const {colors} = useTheme();
   return (
     <View style={[styles.listCtn, {borderColor: colors.border}]}>
       <View style={styles.list}>
         <View style={styles.sectionOne}>
-          <Text style={styles.topic}>Sports</Text>
+          <Text style={styles.topic}>{topic}</Text>
           <Text
             style={[styles.title, {color: colors.text}]}
             numberOfLines={3}
             textBreakStrategy={'balanced'}>
-            Chelsea beat Arsenal 3-0 in Carabo cup game on wednesday
+            {title}
           </Text>
-          <Text style={[styles.date]}>22, Jan 2023</Text>
+          <Text style={[styles.date]}>{date}</Text>
         </View>
         <View style={styles.sectionTwo}>
           <Avatar
-            size={80}
             containerStyle={styles.avatarCtn}
-            avatarStyle={{...styles.avatar, borderColor: colors.border}}
+            // icon={{}}
+            avatarStyle={{...styles.avatar}}
           />
         </View>
       </View>
@@ -60,7 +68,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
     borderColor: 'red',
-    marginRight: 12,
+    marginRight: 15,
   },
   topic: {
     fontWeight: '700',
@@ -77,14 +85,19 @@ const styles = StyleSheet.create({
   },
   date: {
     color: '#6b7280',
+    fontSize: 12,
+    marginTop: 3,
   },
   avatarCtn: {
     // borderWidth: 1,
-    borderColor: 'green',
+    width: 90,
+    height: 80,
+    borderWidth: 1,
+    borderRadius: 8,
+
+    borderColor: '#9ca3af',
   },
   avatar: {
-    borderWidth: 1,
-    borderColor: 'red',
-    borderRadius: 8,
+    // borderWidth: 1,
   },
 });

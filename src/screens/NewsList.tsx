@@ -13,9 +13,11 @@ type NewsListProps = NativeStackScreenProps<
 export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
   return (
     <View style={styles.container}>
-      <NewsItem />
-      <NewsItem />
-      <NewsItem />
+      <NewsItem topic="Sports" date="11, Jan, 2023" />
+      <NewsItem topic="Politics" date="11, Jan, 2023" />
+      <NewsItem topic="Education" />
+      <NewsItem topic="Finance" />
+      <NewsItem topic="Engineering" />
     </View>
   );
 };
@@ -23,6 +25,7 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     // borderWidth: 1,
+    paddingVertical: 15,
     flex: 1,
   },
 });
