@@ -6,7 +6,6 @@ import Signup from '../screens/auth/Signup';
 import {NewsDetail} from '../screens/NewsDetail';
 import {NewsList} from '../screens/NewsList';
 import {LightTheme, DarkTheme} from '../theme';
-import {useSelector} from 'react-redux';
 import {useAppSelector} from '../hooks/hook';
 
 export type RootStackParamList = {
@@ -81,7 +80,7 @@ const RootNavigator = (): JSX.Element => {
 const Navigation = () => {
   const user = useAppSelector(state => state.user);
   return (
-    <NavigationContainer theme={DarkTheme}>
+    <NavigationContainer theme={LightTheme}>
       {user.loggedIn ? <RootNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );

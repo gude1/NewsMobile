@@ -25,10 +25,8 @@ export default Loader;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // borderWidth: 1,
-    // borderColor: 'green',
+    flex: 1,
   },
 });

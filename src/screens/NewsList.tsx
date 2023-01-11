@@ -4,6 +4,7 @@ import {RootStackParamList} from '../navigation/navigation';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Text} from '@rneui/themed';
 import NewsItem from '../components/NewsItem';
+import Container from '../components/Container';
 
 type NewsListProps = NativeStackScreenProps<
   RootStackParamList,
@@ -12,7 +13,7 @@ type NewsListProps = NativeStackScreenProps<
 
 export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
   return (
-    <View style={styles.container}>
+    <Container style={styles.container}>
       <NewsItem
         topic="Sports"
         date="11, Jan, 2023"
@@ -39,7 +40,7 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
         title="Robotics event at Abuja"
         onClick={() => navigation.push('NewsDetail', {id: 'Engineering'})}
       />
-    </View>
+    </Container>
   );
 };
 
@@ -47,6 +48,5 @@ const styles = StyleSheet.create({
   container: {
     // borderWidth: 1,
     paddingVertical: 15,
-    flex: 1,
   },
 });

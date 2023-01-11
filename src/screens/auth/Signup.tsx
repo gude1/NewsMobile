@@ -16,7 +16,6 @@ const Signup = ({navigation, route}: SignupProps): JSX.Element => {
   const [step, setStep] = useState(1);
   const user = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
-  console.log('user', user);
 
   const renderView = () => {
     if (step == 1) {
