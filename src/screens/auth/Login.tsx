@@ -13,7 +13,7 @@ type LoginProps = NativeStackScreenProps<RootStackParamList, 'LogIn'>;
 const Login = ({navigation, route}: LoginProps): JSX.Element => {
   const {colors} = useTheme();
   return (
-    <ScrollContainer style={styles.container}>
+    <ScrollContainer style={styles.container} showLoader={false}>
       <FormContainer
         onSubmit={() => {
           navigation.push('SignUp');
@@ -31,6 +31,5 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    // borderWidth: 2,
   },
 });

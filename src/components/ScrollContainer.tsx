@@ -1,25 +1,47 @@
 import {StyleSheet, ScrollView, View, useWindowDimensions} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import Loader from './Loader';
 
 type ScrollContainerProps = {
   style?: object;
   children: JSX.Element;
+  showLoader?: boolean;
 };
 
 const ScrollContainer = ({
   style,
   children,
+  showLoader = true,
 }: ScrollContainerProps): JSX.Element => {
   const {height} = useWindowDimensions();
-  return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      keyboardShouldPersistTaps={'always'}>
-      <View style={[styles.container, {minHeight: height}, style]}>
-        {children}
-      </View>
-    </ScrollView>
-  );
+  const [loaded, setLoaded] = useState(!showLoader);
+
+  useEffect(() => {
+    if (!loaded)
+      setTimeout(() => {
+        setLoaded(true);
+      }, 500);
+
+    return () => {};
+  }, []);
+
+  const renderView = () => {
+    if (loaded) {
+      return (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps={'always'}>
+          <View style={[styles.container, {minHeight: height}, style]}>
+            {children}
+          </View>
+        </ScrollView>
+      );
+    } else {
+      return <Loader />;
+    }
+  };
+
+  return renderView();
 };
 
 export default ScrollContainer;

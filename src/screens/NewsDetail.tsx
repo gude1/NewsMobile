@@ -5,6 +5,7 @@ import {useTheme} from '@react-navigation/native';
 import {RootStackParamList} from '../navigation/navigation';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import ScrollContainer from '../components/ScrollContainer';
+import Loader from '../components/Loader';
 
 type NewsDetailProps = NativeStackScreenProps<
   RootStackParamList,
