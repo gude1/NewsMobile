@@ -4,12 +4,12 @@ import {useTheme} from '@react-navigation/native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import FormContainer from '../../components/FormContainer';
 import StyledInput from '../../components/StyledInput';
-import Container from '../../components/Container';
+import ScrollContainer from '../../components/ScrollContainer';
 import {RootStackParamList} from '../../navigation/navigation';
 import {setUser} from '../../redux/slice/UserSlice';
 import {useAppDispatch, useAppSelector} from '../../hooks/hook';
 
-type SignupProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
+type SignupProps = NativeStackScreenProps<RootStackParamList, 'SignUp'> & {};
 
 const Signup = ({navigation, route}: SignupProps): JSX.Element => {
   const {colors} = useTheme();
@@ -57,7 +57,9 @@ const Signup = ({navigation, route}: SignupProps): JSX.Element => {
     }
   };
 
-  return <Container style={styles.container}>{renderView()}</Container>;
+  return (
+    <ScrollContainer style={styles.container}>{renderView()}</ScrollContainer>
+  );
 };
 
 export default Signup;

@@ -59,7 +59,7 @@ const RootNavigator = (): JSX.Element => {
       initialRouteName="NewsList"
       screenOptions={{
         animation: 'slide_from_right',
-        headerShadowVisible: false,
+        // headerShadowVisible: false,
         headerTitleStyle: {
           fontWeight: '700',
         },

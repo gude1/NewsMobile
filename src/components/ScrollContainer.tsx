@@ -1,12 +1,15 @@
 import {StyleSheet, ScrollView, View} from 'react-native';
 import React from 'react';
 
-type ContainerProps = {
+type ScrollContainerProps = {
   style?: object;
   children: JSX.Element;
 };
 
-const Container = ({style, children}: ContainerProps): JSX.Element => {
+const ScrollContainer = ({
+  style,
+  children,
+}: ScrollContainerProps): JSX.Element => {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -16,7 +19,7 @@ const Container = ({style, children}: ContainerProps): JSX.Element => {
   );
 };
 
-export default Container;
+export default ScrollContainer;
 
 const styles = StyleSheet.create({
   container: {

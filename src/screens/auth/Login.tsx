@@ -5,7 +5,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
 import FormContainer from '../../components/FormContainer';
 import StyledInput from '../../components/StyledInput';
-import Container from '../../components/Container';
+import ScrollContainer from '../../components/ScrollContainer';
 import {RootStackParamList} from '../../navigation/navigation';
 
 type LoginProps = NativeStackScreenProps<RootStackParamList, 'LogIn'>;
@@ -13,7 +13,7 @@ type LoginProps = NativeStackScreenProps<RootStackParamList, 'LogIn'>;
 const Login = ({navigation, route}: LoginProps): JSX.Element => {
   const {colors} = useTheme();
   return (
-    <Container style={styles.container}>
+    <ScrollContainer style={styles.container}>
       <FormContainer
         onSubmit={() => {
           navigation.push('SignUp');
@@ -22,7 +22,7 @@ const Login = ({navigation, route}: LoginProps): JSX.Element => {
         description="Please sign in with your google account">
         <StyledInput />
       </FormContainer>
-    </Container>
+    </ScrollContainer>
   );
 };
 
