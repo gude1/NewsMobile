@@ -1,42 +1,51 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {Text, Avatar} from '@rneui/themed';
+import {Text, Image} from '@rneui/themed';
 import React from 'react';
 
 type NewsItemProps = {
   topic?: string;
   title?: string;
   date?: string;
+  image?: object | undefined;
+  onClick?: () => void;
 };
 
 const NewsItem = ({
   topic = 'Sports',
   title = 'Chelsea beat Arsenal 3-0 in Carabo cup game on wednesday',
   date = '22, Jan 2023',
+  image,
+  onClick,
 }: NewsItemProps): JSX.Element => {
   const {colors} = useTheme();
   return (
-    <View style={[styles.listCtn, {borderColor: colors.border}]}>
-      <View style={styles.list}>
-        <View style={styles.sectionOne}>
-          <Text style={styles.topic}>{topic}</Text>
-          <Text
-            style={[styles.title, {color: colors.text}]}
-            numberOfLines={3}
-            textBreakStrategy={'balanced'}>
-            {title}
-          </Text>
-          <Text style={[styles.date]}>{date}</Text>
-        </View>
-        <View style={styles.sectionTwo}>
-          <Avatar
-            containerStyle={styles.avatarCtn}
-            // icon={{}}
-            avatarStyle={{...styles.avatar}}
-          />
+    <TouchableOpacity activeOpacity={0.7} onPress={onClick}>
+      <View style={[styles.listCtn, {borderColor: colors.border}]}>
+        <View style={styles.list}>
+          <View style={styles.sectionOne}>
+            <Text style={styles.topic}>{topic}</Text>
+            <Text
+              style={[styles.title, {color: colors.text}]}
+              numberOfLines={3}
+              textBreakStrategy={'balanced'}>
+              {title}
+            </Text>
+            <Text style={[styles.date]}>{date}</Text>
+          </View>
+          <View style={styles.sectionTwo}>
+            <Image
+              containerStyle={[
+                styles.avatarCtn,
+                {backgroundColor: colors.border},
+              ]}
+              resizeMode="cover"
+              source={image}
+            />
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -53,12 +62,13 @@ const styles = StyleSheet.create({
   list: {
     flexDirection: 'row',
     paddingVertical: 5,
+    height: 120,
     // borderWidth: 1,
-    minHeight: 50,
   },
   sectionOne: {
     flex: 1,
     // borderWidth: 1,
+    justifyContent: 'center',
     marginLeft: 15,
     borderColor: 'purple',
   },
@@ -92,12 +102,10 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     width: 90,
     height: 80,
-    borderWidth: 1,
     borderRadius: 8,
-
-    borderColor: '#9ca3af',
   },
   avatar: {
     // borderWidth: 1,
   },
+  avatarPlaceholder: {},
 });
