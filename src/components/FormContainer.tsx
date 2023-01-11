@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   form: {
     // borderWidth: 1,
     width: '90%',
-    marginTop: 70,
+    marginTop: 30,
   },
   formDescCtn: {
     // borderWidth: 1,

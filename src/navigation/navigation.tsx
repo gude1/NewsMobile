@@ -80,7 +80,7 @@ const RootNavigator = (): JSX.Element => {
 const Navigation = () => {
   const user = useAppSelector(state => state.user);
   return (
-    <NavigationContainer theme={LightTheme}>
+    <NavigationContainer theme={DarkTheme}>
       {user.loggedIn ? <RootNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
