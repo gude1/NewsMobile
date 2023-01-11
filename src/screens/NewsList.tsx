@@ -13,18 +13,32 @@ type NewsListProps = NativeStackScreenProps<
 export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
   return (
     <View style={styles.container}>
-      <NewsItem topic="Sports" date="11, Jan, 2023" />
+      <NewsItem
+        topic="Sports"
+        date="11, Jan, 2023"
+        onClick={() => navigation.push('NewsDetail', {id: 'Sports'})}
+      />
       <NewsItem
         topic="Politics"
         title="Tinubu is running for presidential election this year"
         date="11, Jan, 2023"
+        onClick={() => navigation.push('NewsDetail', {id: 'Politics'})}
       />
-      <NewsItem topic="Education" title="Pythagoras Thoerem" />
+      <NewsItem
+        topic="Education"
+        title="Pythagoras Thoerem"
+        onClick={() => navigation.push('NewsDetail', {id: 'Education'})}
+      />
       <NewsItem
         topic="Finance"
         title="Banking sector made $5 billion yesterday"
+        onClick={() => navigation.push('NewsDetail', {id: 'Finance'})}
       />
-      <NewsItem topic="Engineering" title="Robotics event at Abuja" />
+      <NewsItem
+        topic="Engineering"
+        title="Robotics event at Abuja"
+        onClick={() => navigation.push('NewsDetail', {id: 'Engineering'})}
+      />
     </View>
   );
 };

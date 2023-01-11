@@ -13,7 +13,7 @@ export type RootStackParamList = {
   LogIn: undefined;
   SignUp: undefined;
   NewsList: undefined;
-  NewsDetail: undefined;
+  NewsDetail: {id: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -66,7 +66,13 @@ const RootNavigator = (): JSX.Element => {
         statusBarColor: colors.background,
         statusBarStyle: dark ? 'light' : 'dark',
       }}>
-      <Stack.Screen name="NewsList" component={NewsList} />
+      <Stack.Screen
+        name="NewsList"
+        component={NewsList}
+        options={{
+          title: 'News',
+        }}
+      />
       <Stack.Screen name="NewsDetail" component={NewsDetail} />
     </Stack.Navigator>
   );
@@ -75,7 +81,7 @@ const RootNavigator = (): JSX.Element => {
 const Navigation = () => {
   const user = useAppSelector(state => state.user);
   return (
-    <NavigationContainer theme={DarkTheme}>
+    <NavigationContainer theme={LightTheme}>
       {user.loggedIn ? <RootNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
