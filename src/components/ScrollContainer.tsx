@@ -1,4 +1,4 @@
-import {StyleSheet, ScrollView, View} from 'react-native';
+import {StyleSheet, ScrollView, View, useWindowDimensions} from 'react-native';
 import React from 'react';
 
 type ScrollContainerProps = {
@@ -10,11 +10,14 @@ const ScrollContainer = ({
   style,
   children,
 }: ScrollContainerProps): JSX.Element => {
+  const {height} = useWindowDimensions();
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps={'always'}>
-      <View style={[styles.container, style]}>{children}</View>
+      <View style={[styles.container, {minHeight: height}, style]}>
+        {children}
+      </View>
     </ScrollView>
   );
 };
@@ -23,6 +26,9 @@ export default ScrollContainer;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    alignSelf: 'center',
+    maxWidth: 700,
+    // borderWidth: 2,
+    // borderColor: 'green',
   },
 });

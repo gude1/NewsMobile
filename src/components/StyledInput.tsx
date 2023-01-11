@@ -54,16 +54,18 @@ export default StyledInput;
 
 const styles = StyleSheet.create({
   container: {
+    // width: '100%',
     // borderWidth: 2,
     marginVertical: 5,
     paddingLeft: 0,
     borderColor: 'purple',
   },
   inputContainer: {
+    width: '100%',
     borderWidth: 1,
     borderBottomWidth: 1,
     marginTop: 5,
-    // borderColor: 'red',
+    borderColor: 'red',
     borderRadius: 10,
   },
   input: {

@@ -53,10 +53,7 @@ export default NewsItem;
 
 const styles = StyleSheet.create({
   listCtn: {
-    minWidth: 300,
-    width: '100%',
     borderBottomWidth: 1,
-    maxWidth: 700,
     marginVertical: 5,
   },
   list: {
