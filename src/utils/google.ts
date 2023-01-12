@@ -17,8 +17,8 @@ export const configureGoogleSignIn = (): void => {
 };
 
 export const signInToGoogleAcct = async (
-  succesCb: (userinfo: User) => void,
-  failCb: (error: string) => void,
+  succesCb?: (userinfo: User) => void,
+  failCb?: (error: string) => void,
 ) => {
   try {
     await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
@@ -45,8 +45,8 @@ export const signInToGoogleAcct = async (
 };
 
 export const signOutOfGoogleAcct = async (
-  succesCb: () => void,
-  failCb: (err: string) => void,
+  succesCb?: () => void,
+  failCb?: (err: string) => void,
 ) => {
   try {
     await GoogleSignin.signOut();
@@ -57,7 +57,7 @@ export const signOutOfGoogleAcct = async (
   }
 };
 
-export const isSignedIn = async (cB: (val: boolean) => void) => {
+export const isSignedIn = async (cB?: (val: boolean) => void) => {
   const isSignedIn = await GoogleSignin.isSignedIn();
   cB && cB(isSignedIn);
 };

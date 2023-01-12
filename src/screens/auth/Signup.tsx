@@ -4,7 +4,7 @@ import {useTheme} from '@react-navigation/native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import FormContainer from '../../components/FormContainer';
 import StyledInput from '../../components/StyledInput';
-import ScrollContainer from '../../components/ScrollContainer';
+import {User} from '@react-native-google-signin/google-signin';
 import {RootStackParamList} from '../../navigation/navigation';
 import {setUser} from '../../redux/slice/UserSlice';
 import {useAppDispatch, useAppSelector} from '../../hooks/hook';
@@ -17,8 +17,9 @@ import GoogleButton from '../../components/GoogleButton';
 import {signInToGoogleAcct, signOutOfGoogleAcct} from '../../utils/google';
 import {Dialog} from '@rneui/themed';
 import LoadingModal from '../../components/LoadingModal';
-type SignupProps = NativeStackScreenProps<RootStackParamList, 'SignUp'> & {};
+import ScrollContainer from '../../components/ScrollContainer';
 
+type SignupProps = NativeStackScreenProps<RootStackParamList, 'SignUp'> & {};
 type SignupInput = {
   value?: string;
   error?: string;
@@ -66,17 +67,28 @@ const Signup = ({navigation, route}: SignupProps): JSX.Element => {
   }
 
   async function onSubmit2() {
+    const onSuccess = (userinfo: User) => {
+      if (userinfo.user.email !== emailInput.value) {
+        Alert.alert(
+          `You signed in with another email, your email address has being updated from ${emailInput.value} to ${userinfo.user.email}`,
+        );
+      }
+      dispatch(
+        setUser({
+          email: userinfo.user.email,
+          loggedIn: true,
+        }),
+      );
+      setShowDialog(false);
+    };
+
+    const onFailure = (errmsg: string) => {
+      Alert.alert(errmsg);
+      setShowDialog(false);
+    };
+
     setShowDialog(true);
-    signInToGoogleAcct(
-      userinfo => {
-        console.log(userinfo);
-        setShowDialog(false);
-      },
-      errmsg => {
-        Alert.alert(errmsg);
-        setShowDialog(false);
-      },
-    );
+    signInToGoogleAcct(onSuccess, onFailure);
   }
 
   const renderView = () => {
