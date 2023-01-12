@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Alert} from 'react-native';
 import React, {useState, useRef} from 'react';
 import {useTheme} from '@react-navigation/native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -13,6 +13,8 @@ import {
   validateName,
   validatePhoneNumber,
 } from '../../utils/validate';
+import GoogleButton from '../../components/GoogleButton';
+import {signInToGoogleAcct, signOutOfGoogleAcct} from '../../utils/google';
 
 type SignupProps = NativeStackScreenProps<RootStackParamList, 'SignUp'> & {};
 
@@ -50,14 +52,32 @@ const Signup = ({navigation, route}: SignupProps): JSX.Element => {
     if (phoneerr) {
       setPhoneInput({...emailInput, error: phoneerr});
     }
-
     if (nameerr || emailerr || phoneerr) {
       return;
     }
+    dispatch(
+      setUser({
+        email: emailInput.value,
+        fullname: nameInput.value,
+        phone: phoneInput.value,
+      }),
+    );
+  }
+
+  async function onSubmit2() {
+    signInToGoogleAcct(
+      userinfo => {
+        console.log(userinfo);
+      },
+      errmsg => {
+        Alert.alert(errmsg);
+      },
+    );
   }
 
   const renderView = () => {
-    if (step == 1) {
+    let valid = user.email && user.fullname && user.phone;
+    if (!valid) {
       return (
         <FormContainer
           title="Create an account"
@@ -111,9 +131,14 @@ const Signup = ({navigation, route}: SignupProps): JSX.Element => {
       return (
         <FormContainer
           title="Complete Your Registration"
-          description={`Please sign to your google account with email: ${user.email}`}
-          onSubmitTitle="Sign Up">
-          <></>
+          description={`Please sign in to your google account with email: ${user.email}`}
+          onSubmitHide
+          descText="Wrong Identity or email?"
+          descLink="Start Over"
+          descLinkPress={() => {
+            dispatch(setUser({email: ''}));
+          }}>
+          <GoogleButton title={'Sign In'} onPress={onSubmit2} />
         </FormContainer>
       );
     }

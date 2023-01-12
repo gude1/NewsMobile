@@ -5,6 +5,7 @@ export type UserState = {
   fullname?: string;
   email?: string;
   phone?: string;
+  image?: string;
   loggedIn?: boolean;
 };
 
@@ -12,6 +13,7 @@ const initialState: UserState = {
   fullname: '',
   email: '',
   phone: '',
+  image: '',
   loggedIn: false,
 };
 
@@ -20,10 +22,11 @@ export const UserSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state: UserState, action: PayloadAction<UserState>) => {
-      state.fullname = action.payload.fullname || state.fullname;
-      state.email = action.payload.email || state.email;
-      state.phone = action.payload.phone || state.phone;
-      state.loggedIn = action.payload.loggedIn || state.loggedIn;
+      return {...state, ...action.payload};
+      // state.fullname = action.payload.fullname || state.fullname;
+      // state.email = action.payload.email || state.email;
+      // state.phone = action.payload.phone || state.phone;
+      // state.loggedIn = action.payload.loggedIn || state.loggedIn;
     },
   },
 });

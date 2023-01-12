@@ -59,7 +59,7 @@ const FormContainer = ({
       />
       <View style={styles.linkDescCtn}>
         <Text style={[styles.descText, {color: colors.text}]}>{descText}</Text>
-        <TouchableOpacity activeOpacity={0.8} onPress={descLinkPress}>
+        <TouchableOpacity activeOpacity={0.9} onPress={descLinkPress}>
           <Text style={[styles.descLink]}>{descLink}</Text>
         </TouchableOpacity>
       </View>
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   linkDescCtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 15,
   },
   descText: {
     fontWeight: '700',
