@@ -1,5 +1,14 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import {persistReducer, persistStore} from 'redux-persist';
+import {
+  persistStore,
+  persistReducer,
+  REHYDRATE,
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import NewsDetailReducer from '../slice/NewsDetailSlice';
 import NewsListReducer from '../slice/NewsListSlice';
@@ -21,6 +30,12 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export const persistor = persistStore(store);
