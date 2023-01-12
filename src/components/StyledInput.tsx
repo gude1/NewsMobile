@@ -1,16 +1,9 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  StyleProp,
-  TextInputProps,
-  ViewProps,
-} from 'react-native';
+import {StyleSheet, Text, View, StyleProp, TextInputProps} from 'react-native';
 import React from 'react';
 import {Input, InputProps} from '@rneui/themed';
 import {useTheme} from '@react-navigation/native';
 
-// interface StyledInputProps extends InputProps {}
+type StyledInputProps = InputProps & {};
 
 const StyledInput = ({
   placeholder = 'Please enter your name',
@@ -19,13 +12,16 @@ const StyledInput = ({
   selectionColor = '#a5b4fc',
   cursorColor = '#a5b4fc',
   placeholderTextColor = '#6b7280',
+  onChangeText,
+  onChange,
   errorMessage = '',
+  value = '',
   rightIcon = {},
   leftIcon = {},
   ref = null,
   multiline = false,
   maxLength = 30,
-}: InputProps) => {
+}: StyledInputProps) => {
   const {colors, dark} = useTheme();
   return (
     <Input
@@ -34,12 +30,15 @@ const StyledInput = ({
         styles.inputContainer,
         {borderColor: colors.border},
       ]}
+      value={value}
       keyboardType={keyboardType}
       inputStyle={[styles.input, {color: dark ? '#fff' : '#000'}]}
       label={label}
       labelStyle={[styles.label, {color: colors.text}]}
       placeholder={placeholder}
       selectionColor={selectionColor}
+      onChange={onChange}
+      onChangeText={onChangeText}
       cursorColor={cursorColor}
       maxLength={maxLength}
       placeholderTextColor={placeholderTextColor}

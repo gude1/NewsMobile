@@ -14,7 +14,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 import Navigation from './src/navigation/navigation';
 import {store} from './src/redux/store/store';
-import {configureGoogleSignIn} from './src/util';
+import {configureGoogleSignIn} from './src/utils/google';
 
 const App = () => {
   const isDarkMode: boolean = useColorScheme() === 'dark';

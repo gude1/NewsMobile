@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {Button} from '@rneui/themed';
@@ -11,6 +11,9 @@ type FormContainerProps = {
   description?: string;
   onSubmitTitle?: string;
   onSubmitHide?: boolean;
+  descText?: string;
+  descLink?: string;
+  descLinkPress?: () => void;
   onSubmit?: () => void;
 };
 
@@ -19,9 +22,12 @@ const FormContainer = ({
   style,
   title = 'Hello',
   description = 'Please Sign In with your Google Account',
-  onSubmit,
   onSubmitTitle,
   onSubmitHide = false,
+  descLink,
+  descText,
+  descLinkPress,
+  onSubmit,
 }: FormContainerProps): JSX.Element => {
   const {colors, dark} = useTheme();
 
@@ -51,6 +57,12 @@ const FormContainer = ({
           },
         ]}
       />
+      <View style={styles.linkDescCtn}>
+        <Text style={[styles.descText, {color: colors.text}]}>{descText}</Text>
+        <TouchableOpacity activeOpacity={0.8} onPress={descLinkPress}>
+          <Text style={[styles.descLink]}>{descLink}</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -85,5 +97,18 @@ const styles = StyleSheet.create({
   actionBtnCtn: {
     marginTop: 40,
     marginBottom: 20,
+  },
+  linkDescCtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  descText: {
+    fontWeight: '700',
+    marginRight: 5,
+  },
+  descLink: {
+    color: '#2196F3',
+    fontWeight: '700',
   },
 });

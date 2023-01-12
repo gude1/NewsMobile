@@ -21,7 +21,7 @@ const AuthNavigator = (): JSX.Element => {
   const {colors, dark} = useTheme();
   return (
     <Stack.Navigator
-      initialRouteName="LogIn"
+      initialRouteName="SignUp"
       screenOptions={{
         animation: 'slide_from_right',
         headerShadowVisible: false,
@@ -80,7 +80,7 @@ const RootNavigator = (): JSX.Element => {
 const Navigation = () => {
   const user = useAppSelector(state => state.user);
   return (
-    <NavigationContainer theme={DarkTheme}>
+    <NavigationContainer theme={LightTheme}>
       {user.loggedIn ? <RootNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
