@@ -12,8 +12,10 @@ import React, {useEffect} from 'react';
 import {StyleSheet, useColorScheme} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import Loader from './src/components/Loader';
 import Navigation from './src/navigation/navigation';
-import {store} from './src/redux/store/store';
+import {persistor, store} from './src/redux/store/store';
 import {configureGoogleSignIn} from './src/utils/google';
 
 const App = () => {
@@ -26,6 +28,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
+      <PersistGate loading={<Loader />} persistor={persistor} />
       <SafeAreaProvider>
         <Navigation />
       </SafeAreaProvider>

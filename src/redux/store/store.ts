@@ -1,6 +1,6 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import {persistReducer, PersistConfig} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import {persistReducer, persistStore} from 'redux-persist';
+import EncryptedStorage from 'react-native-encrypted-storage';
 import NewsDetailReducer from '../slice/NewsDetailSlice';
 import NewsListReducer from '../slice/NewsListSlice';
 import UserReducer from '../slice/UserSlice';
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
 
 const persistConfig = {
   key: 'root',
-  storage: storage,
+  storage: EncryptedStorage,
   whitelist: ['user'],
 };
 
@@ -22,6 +22,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: persistedReducer,
 });
+
+export const persistor = persistStore(store);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
