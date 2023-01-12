@@ -1,14 +1,26 @@
-import {configureStore} from '@reduxjs/toolkit';
-import NewsDetailSlice from '../slice/NewsDetailSlice';
-import NewsListSlice from '../slice/NewsListSlice';
-import UserSlice from '../slice/UserSlice';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import {persistReducer, PersistConfig} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import NewsDetailReducer from '../slice/NewsDetailSlice';
+import NewsListReducer from '../slice/NewsListSlice';
+import UserReducer from '../slice/UserSlice';
+
+const rootReducer = combineReducers({
+  user: UserReducer,
+  newslist: NewsListReducer,
+  newsdetail: NewsDetailReducer,
+});
+
+const persistConfig = {
+  key: 'root',
+  storage: storage,
+  whitelist: ['user'],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    user: UserSlice,
-    newslist: NewsListSlice,
-    newsdetail: NewsDetailSlice,
-  },
+  reducer: persistedReducer,
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

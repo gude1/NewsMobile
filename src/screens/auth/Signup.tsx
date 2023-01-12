@@ -15,7 +15,8 @@ import {
 } from '../../utils/validate';
 import GoogleButton from '../../components/GoogleButton';
 import {signInToGoogleAcct, signOutOfGoogleAcct} from '../../utils/google';
-
+import {Dialog} from '@rneui/themed';
+import LoadingModal from '../../components/LoadingModal';
 type SignupProps = NativeStackScreenProps<RootStackParamList, 'SignUp'> & {};
 
 type SignupInput = {
@@ -25,7 +26,7 @@ type SignupInput = {
 
 const Signup = ({navigation, route}: SignupProps): JSX.Element => {
   const {colors} = useTheme();
-  const [step, setStep] = useState(1);
+  const [showdialog, setShowDialog] = useState(false);
   const user = useAppSelector(state => state.user);
   const [nameInput, setNameInput] = useState<SignupInput>({
     value: user.fullname,
@@ -65,12 +66,15 @@ const Signup = ({navigation, route}: SignupProps): JSX.Element => {
   }
 
   async function onSubmit2() {
+    setShowDialog(true);
     signInToGoogleAcct(
       userinfo => {
         console.log(userinfo);
+        setShowDialog(false);
       },
       errmsg => {
         Alert.alert(errmsg);
+        setShowDialog(false);
       },
     );
   }
@@ -145,9 +149,12 @@ const Signup = ({navigation, route}: SignupProps): JSX.Element => {
   };
 
   return (
-    <ScrollContainer showLoader={false} style={styles.container}>
-      {renderView()}
-    </ScrollContainer>
+    <>
+      <ScrollContainer showLoader={false} style={styles.container}>
+        {renderView()}
+      </ScrollContainer>
+      <LoadingModal showdialog={showdialog} />
+    </>
   );
 };
 
