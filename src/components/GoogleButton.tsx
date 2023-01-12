@@ -22,6 +22,7 @@ const GoogleButton = ({
           source={require('../assets/images/google.png')}
           style={styles.logo}
           containerStyle={{backgroundColor: 'white'}}
+          placeholderStyle={{backgroundColor: 'white'}}
         />
       }
       iconPosition={'left'}

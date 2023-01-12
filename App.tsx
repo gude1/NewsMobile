@@ -9,7 +9,7 @@
  */
 
 import React, {useEffect} from 'react';
-import {StyleSheet, useColorScheme} from 'react-native';
+import {StyleSheet, useColorScheme, ActivityIndicator} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -28,7 +28,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={<Loader />} persistor={persistor} />
+      <PersistGate loading={<ActivityIndicator />} persistor={persistor} />
       <SafeAreaProvider>
         <Navigation />
       </SafeAreaProvider>
