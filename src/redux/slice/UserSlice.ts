@@ -23,10 +23,6 @@ export const UserSlice = createSlice({
   reducers: {
     setUser: (state: UserState, action: PayloadAction<UserState>) => {
       return {...state, ...action.payload};
-      // state.fullname = action.payload.fullname || state.fullname;
-      // state.email = action.payload.email || state.email;
-      // state.phone = action.payload.phone || state.phone;
-      // state.loggedIn = action.payload.loggedIn || state.loggedIn;
     },
   },
 });

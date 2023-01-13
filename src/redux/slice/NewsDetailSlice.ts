@@ -2,11 +2,24 @@ import {createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
 
 export type NewsDetailState = {
-  title?: string;
-  _id?: string;
+  title: string;
+  topic: string;
+  summary: string;
+  image: string;
+  date: string;
+  author: string;
+  _id: string;
 };
 
-const initialState: NewsDetailState = {};
+const initialState: NewsDetailState = {
+  title: '',
+  summary: '',
+  date: '',
+  image: '',
+  author: '',
+  topic: '',
+  _id: '',
+};
 
 export const NewsDetailSlice = createSlice({
   name: 'newsdetail',

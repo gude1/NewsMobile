@@ -24,16 +24,16 @@ type NewsListProps = NativeStackScreenProps<
 
 export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
   const {colors, dark} = useTheme();
-  const newslist = useAppSelector(state => state.newslist);
+  const newslist = useAppSelector(state => state.newslist.list);
   const fetching = useAppSelector(state => state.newslist.fetching);
 
   const renderItem: ListRenderItem<NewsDetailState> = ({item, index}) => {
     return (
       <NewsItem
         title={item.title}
-        topic="Sports"
-        date="11, Jan, 2023"
-        onClick={() => navigation.navigate('NewsDetail', {id: 'Sports'})}
+        topic={item.topic}
+        date={item.date}
+        onClick={() => navigation.navigate('NewsDetail', {id: item._id})}
       />
     );
   };
@@ -61,7 +61,7 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
 
   const renderListFooterComponent = (): JSX.Element | null => {
     let component = null;
-    if (newslist.list.length > 1) {
+    if (newslist.length > 1) {
       component = (
         <Button
           title={'Load More'}
@@ -78,7 +78,7 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
   return (
     <Container style={styles.container}>
       <FlatList
-        data={[]}
+        data={newslist}
         // data={[{}, {}, {}, {}, {}, {}]}
         initialNumToRender={5}
         renderItem={renderItem}
