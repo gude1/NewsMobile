@@ -2,9 +2,10 @@ import {
   StyleSheet,
   View,
   FlatList,
-  FlatListProps,
+  useWindowDimensions,
   ActivityIndicator,
   ListRenderItem,
+  Alert,
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {RootStackParamList} from '../navigation/navigation';
@@ -14,8 +15,9 @@ import NewsItem from '../components/NewsItem';
 import Container from '../components/Container';
 import {NewsListState} from '../redux/slice/NewsListSlice';
 import {NewsDetailState} from '../redux/slice/NewsDetailSlice';
-import {useAppSelector} from '../hooks/hook';
+import {useAppDispatch, useAppSelector} from '../hooks/hook';
 import {useTheme} from '@react-navigation/native';
+import {getNews} from '../redux/thunks/news';
 
 type NewsListProps = NativeStackScreenProps<
   RootStackParamList,
@@ -24,6 +26,8 @@ type NewsListProps = NativeStackScreenProps<
 
 export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
   const {colors, dark} = useTheme();
+  const {height} = useWindowDimensions();
+  const dispatch = useAppDispatch();
   const newslist = useAppSelector(state => state.newslist.list);
   const fetching = useAppSelector(state => state.newslist.fetching);
 
@@ -51,12 +55,19 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
       component = (
         <Button
           title={'Fetch News'}
+          onPress={() => {
+            dispatch(getNews());
+          }}
           containerStyle={styles.actionBtnCtn}
           buttonStyle={[styles.actionBtn, {backgroundColor: colors.primary}]}
           titleStyle={[styles.actionBtnTitle, {color: dark ? '#000' : '#fff'}]}
         />
       );
-    return <View style={styles.placeholderCtn}>{component}</View>;
+    return (
+      <View style={[styles.placeholderCtn, {height: height - 150}]}>
+        {component}
+      </View>
+    );
   };
 
   const renderListFooterComponent = (): JSX.Element | null => {
@@ -79,7 +90,6 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
     <Container style={styles.container}>
       <FlatList
         data={newslist}
-        // data={[{}, {}, {}, {}, {}, {}]}
         initialNumToRender={5}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
@@ -99,8 +109,8 @@ const styles = StyleSheet.create({
     height: 300,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 3,
-    borderColor: 'green',
+    // borderWidth: 3,
+    // borderColor: 'green',
   },
   placeholderText: {},
   actionBtnCtn: {
