@@ -1,8 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {NewsDetailState} from './NewsDetailSlice';
 
-export type NewsListState = {};
+export type NewsListState = {
+  list: NewsDetailState[];
+  fetching?: boolean;
+};
 
-const initialState: NewsListState = {};
+const initialState: NewsListState = {
+  list: [],
+};
 
 export const NewsListSlice = createSlice({
   name: 'newslist',

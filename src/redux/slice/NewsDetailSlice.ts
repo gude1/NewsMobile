@@ -1,7 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
 
-export type NewsDetailState = {};
+export type NewsDetailState = {
+  title?: string;
+  _id?: string;
+};
 
 const initialState: NewsDetailState = {};
 

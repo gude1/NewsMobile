@@ -1,7 +1,6 @@
 import {StyleSheet, View, useWindowDimensions} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Loader from './Loader';
-
 type ContainerProps = {
   style?: object;
   children: JSX.Element[] | JSX.Element;
@@ -27,11 +26,7 @@ const Container = ({
 
   const renderView = () => {
     if (loaded) {
-      return (
-        <View style={[styles.container, {minHeight: height}, style]}>
-          {children}
-        </View>
-      );
+      return <View style={[styles.container, style]}>{children}</View>;
     } else {
       return (
         <View style={[styles.container, {minHeight: height}, style]}>

@@ -1,10 +1,21 @@
-import {StyleSheet, View} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  FlatListProps,
+  ActivityIndicator,
+  ListRenderItem,
+} from 'react-native';
+import React, {useCallback} from 'react';
 import {RootStackParamList} from '../navigation/navigation';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Text} from '@rneui/themed';
+import {Button, Text} from '@rneui/themed';
 import NewsItem from '../components/NewsItem';
 import Container from '../components/Container';
+import {NewsListState} from '../redux/slice/NewsListSlice';
+import {NewsDetailState} from '../redux/slice/NewsDetailSlice';
+import {useAppSelector} from '../hooks/hook';
+import {useTheme} from '@react-navigation/native';
 
 type NewsListProps = NativeStackScreenProps<
   RootStackParamList,
@@ -12,33 +23,68 @@ type NewsListProps = NativeStackScreenProps<
 > & {};
 
 export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
-  return (
-    <Container style={styles.container}>
+  const {colors, dark} = useTheme();
+  const newslist = useAppSelector(state => state.newslist);
+  const fetching = useAppSelector(state => state.newslist.fetching);
+
+  const renderItem: ListRenderItem<NewsDetailState> = ({item, index}) => {
+    return (
       <NewsItem
+        title={item.title}
         topic="Sports"
         date="11, Jan, 2023"
-        onClick={() => navigation.push('NewsDetail', {id: 'Sports'})}
+        onClick={() => navigation.navigate('NewsDetail', {id: 'Sports'})}
       />
-      <NewsItem
-        topic="Politics"
-        title="Tinubu is running for presidential election this year"
-        date="11, Jan, 2023"
-        onClick={() => navigation.push('NewsDetail', {id: 'Politics'})}
-      />
-      <NewsItem
-        topic="Education"
-        title="Pythagoras Thoerem"
-        onClick={() => navigation.push('NewsDetail', {id: 'Education'})}
-      />
-      <NewsItem
-        topic="Finance"
-        title="Banking sector made $5 billion yesterday"
-        onClick={() => navigation.push('NewsDetail', {id: 'Finance'})}
-      />
-      <NewsItem
-        topic="Engineering"
-        title="Robotics event at Abuja"
-        onClick={() => navigation.push('NewsDetail', {id: 'Engineering'})}
+    );
+  };
+
+  const keyExtractor = (item: NewsDetailState, index: Number): string =>
+    String(index);
+
+  const renderListEmptyComponent = (): JSX.Element => {
+    let component = null;
+    if (fetching)
+      component = (
+        <ActivityIndicator color={'rgba(71, 100, 230, 1)'} size={40} />
+      );
+    else
+      component = (
+        <Button
+          title={'Fetch News'}
+          containerStyle={styles.actionBtnCtn}
+          buttonStyle={[styles.actionBtn, {backgroundColor: colors.primary}]}
+          titleStyle={[styles.actionBtnTitle, {color: dark ? '#000' : '#fff'}]}
+        />
+      );
+    return <View style={styles.placeholderCtn}>{component}</View>;
+  };
+
+  const renderListFooterComponent = (): JSX.Element | null => {
+    let component = null;
+    if (newslist.list.length > 1) {
+      component = (
+        <Button
+          title={'Load More'}
+          containerStyle={styles.actionBtnCtn}
+          buttonStyle={[styles.actionBtn, {backgroundColor: colors.primary}]}
+          titleStyle={[styles.actionBtnTitle, {color: dark ? '#000' : '#fff'}]}
+        />
+      );
+    }
+
+    return component;
+  };
+
+  return (
+    <Container style={styles.container}>
+      <FlatList
+        data={[]}
+        // data={[{}, {}, {}, {}, {}, {}]}
+        initialNumToRender={5}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        ListEmptyComponent={renderListEmptyComponent()}
+        ListFooterComponent={renderListFooterComponent()}
       />
     </Container>
   );
@@ -46,7 +92,27 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    // borderWidth: 1,
-    paddingVertical: 15,
+    // borderWidth: 3,
+    // borderColor: 'green',
+  },
+  placeholderCtn: {
+    height: 300,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 3,
+    borderColor: 'green',
+  },
+  placeholderText: {},
+  actionBtnCtn: {
+    width: 150,
+    alignSelf: 'center',
+    marginVertical: 10,
+  },
+  actionBtn: {
+    padding: 8,
+    borderRadius: 5,
+  },
+  actionBtnTitle: {
+    fontWeight: '700',
   },
 });
