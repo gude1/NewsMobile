@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {NewsDetailState} from './NewsDetailSlice';
 import type {PayloadAction} from '@reduxjs/toolkit';
-import {getNews} from '../thunks/news';
+import {getNews} from '../thunk/news';
 
 export type NewsListState = {
   list: NewsDetailState[];

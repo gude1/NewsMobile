@@ -5,6 +5,7 @@ import React from 'react';
 
 type NewsItemProps = {
   topic?: string;
+  id: string;
   title?: string;
   date?: string;
   image?: object | undefined;
@@ -12,6 +13,7 @@ type NewsItemProps = {
 };
 
 const NewsItem = ({
+  id,
   topic = 'Sports',
   title = 'Chelsea beat Arsenal 3-0 in Carabo cup game on wednesday',
   date = '22, Jan 2023',
@@ -49,7 +51,12 @@ const NewsItem = ({
   );
 };
 
-export default NewsItem;
+export default React.memo(NewsItem, (prevProps, nextProps) => {
+  if (prevProps.id != nextProps.id) {
+    return false;
+  }
+  return true;
+});
 
 const styles = StyleSheet.create({
   listCtn: {

@@ -6,6 +6,7 @@ import {RootStackParamList} from '../navigation/navigation';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import ScrollContainer from '../components/ScrollContainer';
 import Loader from '../components/Loader';
+import {useAppSelector} from '../hooks/hook';
 
 type NewsDetailProps = NativeStackScreenProps<
   RootStackParamList,
@@ -18,10 +19,13 @@ export const NewsDetail = ({
 }: NewsDetailProps): JSX.Element => {
   const {id} = route.params;
   const {colors} = useTheme();
+  const newsitem = useAppSelector(state =>
+    state.newslist.list.find(item => item._id == id),
+  );
 
   useEffect(() => {
     navigation.setOptions({
-      title: id,
+      title: newsitem?.topic,
     });
 
     return () => {};
@@ -31,32 +35,19 @@ export const NewsDetail = ({
     <ScrollContainer>
       <View style={styles.container}>
         <Text style={[styles.title, {color: colors.text}]}>
-          Tinubu is running for presidential election this year
+          {newsitem?.title}
         </Text>
-        <Text style={styles.author}>Owolabi Gideon</Text>
+        <View style={styles.metaDataCtn}>
+          <Text style={styles.author}>{newsitem?.author}</Text>
+          <Text style={styles.date}>{newsitem?.date}</Text>
+        </View>
         <Image
           containerStyle={[styles.image, {backgroundColor: colors.border}]}
           resizeMode="cover"
-          // source={image}
+          source={{uri: newsitem?.image}}
         />
         <Text style={[styles.body, {color: colors.text}]}>
-          One of the most famous couples in the world, Kylie Jenner and Travis
-          Scott, have reportedly split up for the second time after reviving
-          their relationship in February 2020. The Kylie Cosmetics founder
-          shares two children - daughter Stormi and a nearly one-year-old son -
-          with the 31-year-old rapper. Us Weekly reported that the two separated
-          over Christmas as the reality star headed to Aspen, Colorado, with her
-          two children, but without the rapper. "Kylie and Travis are off again,
-          they were supposed to spend the holidays together, but she went to
-          Aspen to be with her family and friends up there," a person close to
-          Ms Jenner and Mr Scott told the magazine, adding, "This has happened
-          so many times before, they're known to be on again off again, but
-          always remain friends and great co-parents." Other prominent
-          personalities in Kylie Jenner's Aspen trip included Hailey Bieber,
-          Justin Bieber and Stassie Karanikolaou. On January 1, the 25-year-old
-          also shared a video on her Instagram stories, featuring her Stormi. In
-          the clip, she was heard saying, "We are on a serious adventure right
-          now."{' '}
+          {newsitem?.summary}
         </Text>
       </View>
     </ScrollContainer>
@@ -75,11 +66,20 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     fontSize: 22,
   },
+  metaDataCtn: {
+    marginTop: 20,
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
   author: {
     textTransform: 'capitalize',
-    marginTop: 10,
     color: '#6b7280',
-    fontSize: 14,
+    fontSize: 13,
+    marginRight: 15,
+  },
+  date: {
+    color: '#6b7280',
+    fontSize: 12,
   },
   image: {
     width: '100%',

@@ -5,9 +5,10 @@ import {
   useWindowDimensions,
   ActivityIndicator,
   ListRenderItem,
+  RefreshControl,
   Alert,
 } from 'react-native';
-import React, {useCallback} from 'react';
+import React, {useState, useEffect} from 'react';
 import {RootStackParamList} from '../navigation/navigation';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Button, Text} from '@rneui/themed';
@@ -17,7 +18,7 @@ import {NewsListState} from '../redux/slice/NewsListSlice';
 import {NewsDetailState} from '../redux/slice/NewsDetailSlice';
 import {useAppDispatch, useAppSelector} from '../hooks/hook';
 import {useTheme} from '@react-navigation/native';
-import {getNews} from '../redux/thunks/news';
+import {getNews} from '../redux/thunk/news';
 
 type NewsListProps = NativeStackScreenProps<
   RootStackParamList,
@@ -30,12 +31,20 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const newslist = useAppSelector(state => state.newslist.list);
   const fetching = useAppSelector(state => state.newslist.fetching);
+  const [limit, setLimit] = useState(10);
+
+  useEffect(() => {
+    dispatch(getNews());
+    return () => {};
+  }, []);
 
   const renderItem: ListRenderItem<NewsDetailState> = ({item, index}) => {
     return (
       <NewsItem
+        id={item._id}
         title={item.title}
         topic={item.topic}
+        image={{uri: item.image}}
         date={item.date}
         onClick={() => navigation.navigate('NewsDetail', {id: item._id})}
       />
@@ -48,16 +57,17 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
   const renderListEmptyComponent = (): JSX.Element => {
     let component = null;
     if (fetching)
-      component = (
-        <ActivityIndicator color={'rgba(71, 100, 230, 1)'} size={40} />
-      );
+      component = <ActivityIndicator color={colors.primary} size={40} />;
     else
       component = (
         <Button
           title={'Fetch News'}
           onPress={() => {
             dispatch(getNews());
+            // navigation.navigate('NewsDetail', {id: ''});
           }}
+          loading={fetching}
+          disabled={fetching}
           containerStyle={styles.actionBtnCtn}
           buttonStyle={[styles.actionBtn, {backgroundColor: colors.primary}]}
           titleStyle={[styles.actionBtnTitle, {color: dark ? '#000' : '#fff'}]}
@@ -71,25 +81,44 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
   };
 
   const renderListFooterComponent = (): JSX.Element | null => {
-    let component = null;
-    if (newslist.length > 1) {
-      component = (
-        <Button
-          title={'Load More'}
-          containerStyle={styles.actionBtnCtn}
-          buttonStyle={[styles.actionBtn, {backgroundColor: colors.primary}]}
-          titleStyle={[styles.actionBtnTitle, {color: dark ? '#000' : '#fff'}]}
-        />
-      );
+    if (!newslist || newslist.length <= 10 || newslist.length <= limit) {
+      return null;
+    }
+    return (
+      <Button
+        title={'Load More'}
+        onPress={() => {
+          setLimit(limit => limit + 10);
+        }}
+        containerStyle={styles.actionBtnCtn}
+        buttonStyle={[styles.actionBtn, {backgroundColor: colors.primary}]}
+        titleStyle={[styles.actionBtnTitle, {color: dark ? '#000' : '#fff'}]}
+      />
+    );
+  };
+
+  const renderRefreshControl = (): JSX.Element => {
+    if (!newslist || newslist.length < 1) {
+      return <></>;
     }
 
-    return component;
+    return (
+      <RefreshControl
+        refreshing={fetching}
+        onRefresh={() => {
+          dispatch(getNews());
+        }}
+        colors={[colors.primary]}
+        tintColor={colors.primary}
+      />
+    );
   };
 
   return (
     <Container style={styles.container}>
       <FlatList
-        data={newslist}
+        data={newslist.slice(0, limit)}
+        refreshControl={renderRefreshControl()}
         initialNumToRender={5}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
