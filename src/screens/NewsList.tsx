@@ -14,7 +14,6 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Button, Text} from '@rneui/themed';
 import NewsItem from '../components/NewsItem';
 import Container from '../components/Container';
-import {NewsListState} from '../redux/slice/NewsListSlice';
 import {NewsDetailState} from '../redux/slice/NewsDetailSlice';
 import {useAppDispatch, useAppSelector} from '../hooks/hook';
 import {useTheme} from '@react-navigation/native';
@@ -108,8 +107,8 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
         onRefresh={() => {
           dispatch(getNews());
         }}
-        colors={[colors.primary]}
-        tintColor={colors.primary}
+        colors={['#000']}
+        tintColor={'#000'}
       />
     );
   };

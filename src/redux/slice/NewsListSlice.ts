@@ -28,7 +28,7 @@ export const NewsListSlice = createSlice({
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(getNews.fulfilled, (state, action) => {
       // Add user to the state array
-      state.list = state.list.concat(action.payload);
+      state.list = action.payload;
     });
   },
 });
