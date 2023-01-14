@@ -7,6 +7,7 @@ import {NewsDetail} from '../screens/NewsDetail';
 import {NewsList} from '../screens/NewsList';
 import {LightTheme, DarkTheme} from '../theme';
 import {useAppSelector} from '../hooks/hook';
+import ProfileModal from '../components/ProfileModal';
 
 export type RootStackParamList = {
   LogIn: undefined;
@@ -64,6 +65,7 @@ const RootNavigator = (): JSX.Element => {
         },
         statusBarColor: colors.background,
         statusBarStyle: dark ? 'light' : 'dark',
+        headerRight: () => <ProfileModal />,
       }}>
       <Stack.Screen
         name="NewsList"
@@ -80,7 +82,7 @@ const RootNavigator = (): JSX.Element => {
 const Navigation = () => {
   const user = useAppSelector(state => state.user);
   return (
-    <NavigationContainer theme={DarkTheme}>
+    <NavigationContainer theme={LightTheme}>
       {user.loggedIn ? <RootNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );

@@ -1,16 +1,23 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, ActivityIndicator} from 'react-native';
 import React from 'react';
-import {Dialog} from '@rneui/themed';
+import {Overlay} from '@rneui/base';
+import {useTheme} from '@react-navigation/native';
 
 type LoadingModalProps = {
   showdialog: boolean;
 };
 
 const LoadingModal = ({showdialog = false}: LoadingModalProps): JSX.Element => {
+  const {colors} = useTheme();
+
   return (
-    <Dialog isVisible={showdialog} overlayStyle={styles.dialog}>
-      <Dialog.Loading />
-    </Dialog>
+    <Overlay
+      isVisible={showdialog}
+      animationType="fade"
+      overlayStyle={[styles.dialog, {backgroundColor: colors.background}]}
+      statusBarTranslucent>
+      <ActivityIndicator color={colors.primary} size={35} />
+    </Overlay>
   );
 };
 
@@ -20,7 +27,6 @@ const styles = StyleSheet.create({
   dialog: {
     width: 60,
     height: 60,
-    paddingBottom: 10,
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',

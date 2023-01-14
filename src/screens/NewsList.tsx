@@ -31,6 +31,7 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
   const newslist = useAppSelector(state => state.newslist.list);
   const fetching = useAppSelector(state => state.newslist.fetching);
   const [limit, setLimit] = useState(10);
+  const [loadingmore, setLoadingMore] = useState(false);
 
   useEffect(() => {
     dispatch(getNews());
@@ -87,8 +88,14 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
       <Button
         title={'Load More'}
         onPress={() => {
-          setLimit(limit => limit + 10);
+          setLoadingMore(true);
+          setTimeout(() => {
+            setLimit(limit => limit + 10);
+          }, 0);
+          setLoadingMore(false);
         }}
+        loading={loadingmore}
+        disabled={loadingmore}
         containerStyle={styles.actionBtnCtn}
         buttonStyle={[styles.actionBtn, {backgroundColor: colors.primary}]}
         titleStyle={[styles.actionBtnTitle, {color: dark ? '#000' : '#fff'}]}

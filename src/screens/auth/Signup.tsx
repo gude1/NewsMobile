@@ -76,6 +76,7 @@ const Signup = ({navigation, route}: SignupProps): JSX.Element => {
       dispatch(
         setUser({
           email: userinfo.user.email,
+          image: String(userinfo.user.photo),
           loggedIn: true,
         }),
       );
