@@ -20,6 +20,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AuthNavigator = (): JSX.Element => {
   const {colors, dark} = useTheme();
+  const user = useAppSelector(state => state.user);
   return (
     <Stack.Navigator
       initialRouteName="SignUp"

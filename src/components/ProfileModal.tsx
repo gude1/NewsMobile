@@ -2,22 +2,41 @@ import {StyleSheet, View, Alert} from 'react-native';
 import React, {useState} from 'react';
 import {Avatar, Button, Overlay, Text} from '@rneui/themed';
 import {useTheme} from '@react-navigation/native';
-import {useAppSelector} from '../hooks/hook';
+import {useAppDispatch, useAppSelector} from '../hooks/hook';
 import LoadingModal from './LoadingModal';
+import {setUser} from '../redux/slice/UserSlice';
+import {signOutOfGoogleAcct} from '../utils/google';
 
 const ProfileModal = () => {
   const {colors} = useTheme();
   const [showprofilemodal, setShowProfileModal] = useState(false);
   const [showloadingmodal, setShowLoadingModal] = useState(false);
   const user = useAppSelector(state => state.user);
+  const dispatch = useAppDispatch();
 
-  const handleLogout = () => {};
+  function handleLogout() {
+    const onSuccess = () => {
+      setShowLoadingModal(false);
+      dispatch(
+        setUser({
+          loggedIn: false,
+          image: '',
+        }),
+      );
+    };
+
+    const onFail = () => {
+      setShowLoadingModal(false);
+      Alert.alert('Sign out failed, please try again');
+    };
+    signOutOfGoogleAcct(onSuccess, onFail);
+  }
 
   const showAlert = () => {
     Alert.alert('Alert Title', 'My Alert Msg', [
       {
         text: 'Yes',
-        onPress: () => Alert.alert('Cancel Pressed'),
+        onPress: () => handleLogout(),
       },
       {
         text: 'No',
@@ -61,7 +80,7 @@ const ProfileModal = () => {
               setShowProfileModal(false);
               showAlert();
             }}
-            title={'Log Out'}
+            title={'Sign Out'}
             containerStyle={styles.actionBtnCtn}
             buttonStyle={styles.actionBtn}
           />
