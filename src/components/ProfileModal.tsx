@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // borderWidth: 1,
     alignItems: 'center',
-    marginHorizontal: 10,
+    marginHorizontal: 20,
   },
   overlay: {
     padding: 0,
