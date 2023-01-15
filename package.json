@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-firebase/app": "^16.5.0",
     "@react-native-firebase/crashlytics": "^16.5.0",
+    "@react-native-firebase/messaging": "^16.5.0",
     "@react-native-firebase/perf": "^16.5.0",
     "@react-native-firebase/remote-config": "^16.5.0",
     "@react-native-google-signin/google-signin": "^9.0.2",
