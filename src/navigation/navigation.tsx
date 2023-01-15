@@ -1,4 +1,4 @@
-import {useColorScheme} from 'react-native';
+import {useColorScheme, View} from 'react-native';
 import {NavigationContainer, useTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../screens/auth/Login';
@@ -8,6 +8,7 @@ import {NewsList} from '../screens/NewsList';
 import {LightTheme, DarkTheme} from '../theme';
 import {useAppSelector} from '../hooks/hook';
 import ProfileModal from '../components/ProfileModal';
+import ThemeSwitch from '../components/ThemeSwitch';
 
 export type RootStackParamList = {
   LogIn: undefined;
@@ -30,6 +31,7 @@ const AuthNavigator = (): JSX.Element => {
         headerTitleStyle: {
           fontWeight: '700',
         },
+        headerRight: () => <ThemeSwitch />,
         statusBarColor: colors.background,
         statusBarStyle: dark ? 'light' : 'dark',
       }}>
@@ -64,7 +66,12 @@ const RootNavigator = (): JSX.Element => {
         },
         statusBarColor: colors.background,
         statusBarStyle: dark ? 'light' : 'dark',
-        headerRight: () => <ProfileModal />,
+        headerRight: () => (
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <ThemeSwitch />
+            <ProfileModal />
+          </View>
+        ),
       }}>
       <Stack.Screen
         name="NewsList"
@@ -80,8 +87,18 @@ const RootNavigator = (): JSX.Element => {
 
 const Navigation = () => {
   const user = useAppSelector(state => state.user);
+  const colorScheme = useColorScheme();
+
+  const returnTheme = () => {
+    if (user.theme && user.theme.length > 0) {
+      return user.theme == 'light' ? LightTheme : DarkTheme;
+    } else {
+      colorScheme == 'light' ? LightTheme : DarkTheme;
+    }
+  };
+
   return (
-    <NavigationContainer theme={LightTheme}>
+    <NavigationContainer theme={returnTheme()}>
       {user.loggedIn ? <RootNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );

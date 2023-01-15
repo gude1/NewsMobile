@@ -8,7 +8,7 @@ import {setUser} from '../redux/slice/UserSlice';
 import {signOutOfGoogleAcct} from '../utils/google';
 
 const ProfileModal = () => {
-  const {colors} = useTheme();
+  const {colors, dark} = useTheme();
   const [showprofilemodal, setShowProfileModal] = useState(false);
   const [showloadingmodal, setShowLoadingModal] = useState(false);
   const user = useAppSelector(state => state.user);
@@ -56,12 +56,11 @@ const ProfileModal = () => {
       />
       <Overlay
         animationType="slide"
-        overlayStyle={{padding: 0, margin: 0}}
+        overlayStyle={[styles.overlay, {backgroundColor: colors.background}]}
         isVisible={showprofilemodal}
         statusBarTranslucent
-        style={{backgroundColor: 'white'}}
         onBackdropPress={() => setShowProfileModal(false)}>
-        <View style={styles.contentCtn}>
+        <View style={[styles.contentCtn, {backgroundColor: colors.background}]}>
           <Avatar
             rounded
             source={user.image ? {uri: user.image} : undefined}
@@ -75,14 +74,17 @@ const ProfileModal = () => {
             {user.email}
           </Text>
           <Button
-            color={colors.primary}
             onPress={() => {
               setShowProfileModal(false);
               showAlert();
             }}
             title={'Log Out'}
             containerStyle={styles.actionBtnCtn}
-            buttonStyle={styles.actionBtn}
+            titleStyle={[
+              styles.actionBtnTitle,
+              {color: dark ? '#000' : '#fff'},
+            ]}
+            buttonStyle={[styles.actionBtn, {backgroundColor: colors.primary}]}
           />
         </View>
       </Overlay>
@@ -100,10 +102,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 10,
   },
+  overlay: {
+    padding: 0,
+    borderRadius: 8,
+    overflow: 'hidden',
+    margin: 0,
+  },
   avatarCtn: {},
   contentCtn: {
     backgroundColor: 'white',
-    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
     width: 220,

@@ -7,7 +7,7 @@ export type UserState = {
   phone?: string;
   image?: string;
   loggedIn?: boolean;
-  theme?: string;
+  dark?: boolean;
 };
 
 const initialState: UserState = {
@@ -15,7 +15,7 @@ const initialState: UserState = {
   email: '',
   phone: '',
   image: '',
-  theme: '',
+  theme: false,
   loggedIn: false,
 };
 
