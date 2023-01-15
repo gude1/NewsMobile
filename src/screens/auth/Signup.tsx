@@ -14,8 +14,7 @@ import {
   validatePhoneNumber,
 } from '../../utils/validate';
 import GoogleButton from '../../components/GoogleButton';
-import {signInToGoogleAcct, signOutOfGoogleAcct} from '../../utils/google';
-import {Dialog} from '@rneui/themed';
+import {signInToGoogleAcct} from '../../utils/google';
 import LoadingModal from '../../components/LoadingModal';
 import ScrollContainer from '../../components/ScrollContainer';
 
@@ -30,13 +29,13 @@ const Signup = ({navigation, route}: SignupProps): JSX.Element => {
   const [showdialog, setShowDialog] = useState(false);
   const user = useAppSelector(state => state.user);
   const [nameInput, setNameInput] = useState<SignupInput>({
-    value: user.fullname,
+    value: '',
   });
   const [emailInput, setEmailInput] = useState<SignupInput>({
-    value: user.email,
+    value: '',
   });
   const [phoneInput, setPhoneInput] = useState<SignupInput>({
-    value: user.phone,
+    value: '',
   });
   const dispatch = useAppDispatch();
 
@@ -99,7 +98,7 @@ const Signup = ({navigation, route}: SignupProps): JSX.Element => {
         <FormContainer
           title="Create an account"
           description="Please fill the inputs with your details"
-          onSubmitTitle="Sign Up"
+          onSubmitTitle="Continue"
           onSubmit={onSubmit}
           descText="Have an account?"
           descLink="Sign In"
@@ -148,14 +147,14 @@ const Signup = ({navigation, route}: SignupProps): JSX.Element => {
       return (
         <FormContainer
           title="Complete Your Registration"
-          description={`Please sign in to your google account with email: ${user.email}`}
+          description={`Please sign in to your google account: ${user.email}`}
           onSubmitHide
           descText="Wrong Identity or email?"
           descLink="Start Over"
           descLinkPress={() => {
             dispatch(setUser({email: ''}));
           }}>
-          <GoogleButton title={'Sign In'} onPress={onSubmit2} />
+          <GoogleButton title={'Sign Up'} onPress={onSubmit2} />
         </FormContainer>
       );
     }

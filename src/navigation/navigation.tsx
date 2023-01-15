@@ -23,13 +23,12 @@ const AuthNavigator = (): JSX.Element => {
   const user = useAppSelector(state => state.user);
   return (
     <Stack.Navigator
-      initialRouteName="SignUp"
+      initialRouteName={user.email ? 'LogIn' : 'SignUp'}
       screenOptions={{
         animation: 'slide_from_right',
         headerShadowVisible: false,
         headerTitleStyle: {
           fontWeight: '700',
-          // fontFamily: 'sans-serif-condensed',
         },
         statusBarColor: colors.background,
         statusBarStyle: dark ? 'light' : 'dark',
@@ -38,7 +37,7 @@ const AuthNavigator = (): JSX.Element => {
         name="LogIn"
         component={Login}
         options={{
-          title: 'Sign In',
+          title: 'Log In',
         }}
       />
       <Stack.Screen

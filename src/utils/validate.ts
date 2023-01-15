@@ -11,8 +11,8 @@ export function validateName(value: string) {
   if (validateFilled(value)) {
     return validateFilled(value);
   }
-  if (!/^[a-zA-Z-' ]{3,30}$/i.test(value)) {
-    return 'Enter a name 3 to 30 characters long';
+  if (!/^[a-zA-Z-' ]{10,30}$/i.test(value)) {
+    return 'Full Name must be between 10-30 characters long';
   } else return null;
 }
 

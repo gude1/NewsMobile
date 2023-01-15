@@ -33,7 +33,7 @@ const ProfileModal = () => {
   }
 
   const showAlert = () => {
-    Alert.alert('Alert Title', 'My Alert Msg', [
+    Alert.alert('Log Out', '', [
       {
         text: 'Yes',
         onPress: () => handleLogout(),
@@ -80,7 +80,7 @@ const ProfileModal = () => {
               setShowProfileModal(false);
               showAlert();
             }}
-            title={'Sign Out'}
+            title={'Log Out'}
             containerStyle={styles.actionBtnCtn}
             buttonStyle={styles.actionBtn}
           />
