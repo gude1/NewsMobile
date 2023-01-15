@@ -8,25 +8,25 @@ import {
   RefreshControl,
   Alert,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
-import {RootStackParamList} from '../navigation/navigation';
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Button, Text} from '@rneui/themed';
+import React, { useState, useEffect } from 'react';
+import { RootStackParamList } from '../navigation/navigation';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Button, Text } from '@rneui/themed';
 import NewsItem from '../components/NewsItem';
 import Container from '../components/Container';
-import {NewsDetailState} from '../redux/slice/NewsDetailSlice';
-import {useAppDispatch, useAppSelector} from '../hooks/hook';
-import {useTheme} from '@react-navigation/native';
-import {getNews} from '../redux/thunk/news';
+import { NewsDetailState } from '../redux/slice/NewsDetailSlice';
+import { useAppDispatch, useAppSelector } from '../hooks/hook';
+import { useTheme } from '@react-navigation/native';
+import { getNews } from '../redux/thunk/news';
 
 type NewsListProps = NativeStackScreenProps<
   RootStackParamList,
   'NewsList'
 > & {};
 
-export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
-  const {colors, dark} = useTheme();
-  const {height} = useWindowDimensions();
+export const NewsList = ({ navigation, route }: NewsListProps): JSX.Element => {
+  const { colors, dark } = useTheme();
+  const { height } = useWindowDimensions();
   const dispatch = useAppDispatch();
   const newslist = useAppSelector(state => state.newslist.list);
   const fetching = useAppSelector(state => state.newslist.fetching);
@@ -35,18 +35,18 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
 
   useEffect(() => {
     dispatch(getNews());
-    return () => {};
+    return () => { };
   }, []);
 
-  const renderItem: ListRenderItem<NewsDetailState> = ({item, index}) => {
+  const renderItem: ListRenderItem<NewsDetailState> = ({ item, index }) => {
     return (
       <NewsItem
         id={item._id}
         title={item.title}
         topic={item.topic}
-        image={{uri: item.image}}
+        image={{ uri: item.image }}
         date={item.date}
-        onClick={() => navigation.navigate('NewsDetail', {id: item._id})}
+        onClick={() => navigation.navigate('NewsDetail', { id: item._id })}
       />
     );
   };
@@ -69,12 +69,12 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
           loading={fetching}
           disabled={fetching}
           containerStyle={styles.actionBtnCtn}
-          buttonStyle={[styles.actionBtn, {backgroundColor: colors.primary}]}
-          titleStyle={[styles.actionBtnTitle, {color: dark ? '#000' : '#fff'}]}
+          buttonStyle={[styles.actionBtn, { backgroundColor: colors.primary }]}
+          titleStyle={[styles.actionBtnTitle, { color: dark ? '#000' : '#fff' }]}
         />
       );
     return (
-      <View style={[styles.placeholderCtn, {height: height - 150}]}>
+      <View style={[styles.placeholderCtn, { height: height - 150 }]}>
         {component}
       </View>
     );
@@ -97,8 +97,8 @@ export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
         loading={loadingmore}
         disabled={loadingmore}
         containerStyle={styles.actionBtnCtn}
-        buttonStyle={[styles.actionBtn, {backgroundColor: colors.primary}]}
-        titleStyle={[styles.actionBtnTitle, {color: dark ? '#000' : '#fff'}]}
+        buttonStyle={[styles.actionBtn, { backgroundColor: colors.primary }]}
+        titleStyle={[styles.actionBtnTitle, { color: dark ? '#000' : '#fff' }]}
       />
     );
   };

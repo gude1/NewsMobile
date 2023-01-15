@@ -9,6 +9,7 @@ import {LightTheme, DarkTheme} from '../theme';
 import {useAppSelector} from '../hooks/hook';
 import ProfileModal from '../components/ProfileModal';
 import ThemeSwitch from '../components/ThemeSwitch';
+import {Button} from '@rneui/themed';
 
 export type RootStackParamList = {
   LogIn: undefined;
@@ -78,6 +79,21 @@ const RootNavigator = (): JSX.Element => {
         component={NewsList}
         options={{
           title: 'News',
+          headerRight: () => (
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <ThemeSwitch />
+              <ProfileModal />
+              <Button
+                title={'Error'}
+                buttonStyle={{padding: 5}}
+                color={'error'}
+                onPress={() => {
+                  //throws an error
+                  User.play();
+                }}
+              />
+            </View>
+          ),
         }}
       />
       <Stack.Screen name="NewsDetail" component={NewsDetail} />
