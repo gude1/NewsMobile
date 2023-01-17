@@ -2,12 +2,14 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {NewsDetailState} from '../slice/NewsDetailSlice';
 import {updateNewsStatus} from '../slice/NewsListSlice';
 import news from '../../config/news';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 // First, create the thunk
 export const getNews = createAsyncThunk<NewsDetailState[]>(
   'newslist/getNews',
   async (_, thunkApi) => {
     try {
+      crashlytics().log('getNews');
       const options = {
         params: {
           lang: 'en',
@@ -32,6 +34,7 @@ export const getNews = createAsyncThunk<NewsDetailState[]>(
       thunkApi.dispatch(updateNewsStatus(false));
       return thunkApi.fulfillWithValue(data);
     } catch (err) {
+      crashlytics().recordError(new Error(JSON.stringify(err)));
       thunkApi.dispatch(updateNewsStatus(false));
       console.log('searchNews', String(err));
       return thunkApi.rejectWithValue(String(err));

@@ -1,5 +1,9 @@
 import {useColorScheme, View} from 'react-native';
-import {NavigationContainer, useTheme} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  createNavigationContainerRef,
+  useTheme,
+} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../screens/auth/Login';
 import Signup from '../screens/auth/Signup';
@@ -10,6 +14,9 @@ import {useAppSelector} from '../hooks/hook';
 import ProfileModal from '../components/ProfileModal';
 import ThemeSwitch from '../components/ThemeSwitch';
 import {Button} from '@rneui/themed';
+import crashlytics from '@react-native-firebase/crashlytics';
+import React, {useRef} from 'react';
+import type {NavigationContainerRef} from '@react-navigation/native';
 
 export type RootStackParamList = {
   LogIn: undefined;
@@ -88,8 +95,7 @@ const RootNavigator = (): JSX.Element => {
                 buttonStyle={{padding: 5}}
                 color={'error'}
                 onPress={() => {
-                  //throws an error
-                  User.play();
+                  crashlytics().crash();
                 }}
               />
             </View>
@@ -104,6 +110,9 @@ const RootNavigator = (): JSX.Element => {
 const Navigation = () => {
   const user = useAppSelector(state => state.user);
   const colorScheme = useColorScheme();
+  const navigationRef = createNavigationContainerRef<RootStackParamList>();
+  const routeNameRef: React.MutableRefObject<NavigationContainerRef<RootStackParamList> | null
+  > = useRef(null);
 
   const returnTheme = () => {
     if (user.theme && user.theme.length > 0) {
@@ -114,7 +123,28 @@ const Navigation = () => {
   };
 
   return (
-    <NavigationContainer theme={returnTheme()}>
+    <NavigationContainer
+      theme={returnTheme()}
+      ref={navigationRef}
+      onReady={() => {
+        if (routeNameRef.current)
+          routeNameRef.current = ;
+      }}
+      onStateChange={async () => {
+        const previousRouteName = routeNameRef.current;
+        const currentRouteName = navigationRef.getCurrentRoute()!.name;
+        const trackScreenView = () => {
+          // Your implementation of analytics goes here!
+        };
+
+        if (previousRouteName !== currentRouteName) {
+          // Save the current route name for later comparison
+          routeNameRef.current = currentRouteName;
+
+          // Replace the line below to add the tracker from a mobile analytics SDK
+          await trackScreenView(currentRouteName);
+        }
+      }}>
       {user.loggedIn ? <RootNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );

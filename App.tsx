@@ -8,22 +8,40 @@
  * @format
  */
 
-import React, {useEffect} from 'react';
-import {StyleSheet, useColorScheme, ActivityIndicator} from 'react-native';
+import crashlytics from '@react-native-firebase/crashlytics';
+import React, {useEffect, useRef} from 'react';
+import {
+  StyleSheet,
+  Alert,
+  useColorScheme,
+  ActivityIndicator,
+} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
-import Loader from './src/components/Loader';
 import Navigation from './src/navigation/navigation';
 import {persistor, store} from './src/redux/store/store';
+import messaging from '@react-native-firebase/messaging';
+import analytics from '@react-native-firebase/analytics';
 import {configureGoogleSignIn} from './src/utils/google';
-
+import {setupRemoteConfigDefaults} from './src/utils/remoteconfig';
 const App = () => {
   const isDarkMode: boolean = useColorScheme() === 'dark';
 
   useEffect(() => {
     configureGoogleSignIn();
+    crashlytics().log('App mounted');
+    setupRemoteConfigDefaults();
     return () => {};
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+      console.log('New  message', JSON.stringify(remoteMessage));
+    });
+
+    return unsubscribe;
   }, []);
 
   return (
