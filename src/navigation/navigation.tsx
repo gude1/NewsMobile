@@ -16,7 +16,7 @@ import ThemeSwitch from '../components/ThemeSwitch';
 import {Button} from '@rneui/themed';
 import crashlytics from '@react-native-firebase/crashlytics';
 import React, {useRef} from 'react';
-import type {NavigationContainerRef} from '@react-navigation/native';
+import analytics from '@react-native-firebase/analytics';
 
 export type RootStackParamList = {
   LogIn: undefined;
@@ -110,9 +110,8 @@ const RootNavigator = (): JSX.Element => {
 const Navigation = () => {
   const user = useAppSelector(state => state.user);
   const colorScheme = useColorScheme();
-  const navigationRef = createNavigationContainerRef<RootStackParamList>();
-  const routeNameRef: React.MutableRefObject<NavigationContainerRef<RootStackParamList> | null
-  > = useRef(null);
+  const navigationRef = createNavigationContainerRef();
+  const routeNameRef: React.MutableRefObject<any> = useRef(null);
 
   const returnTheme = () => {
     if (user.theme && user.theme.length > 0) {
@@ -127,23 +126,18 @@ const Navigation = () => {
       theme={returnTheme()}
       ref={navigationRef}
       onReady={() => {
-        if (routeNameRef.current)
-          routeNameRef.current = ;
+        routeNameRef.current = navigationRef.getCurrentRoute()?.name;
       }}
       onStateChange={async () => {
         const previousRouteName = routeNameRef.current;
-        const currentRouteName = navigationRef.getCurrentRoute()!.name;
-        const trackScreenView = () => {
-          // Your implementation of analytics goes here!
-        };
-
+        const currentRouteName = navigationRef.getCurrentRoute()?.name;
         if (previousRouteName !== currentRouteName) {
-          // Save the current route name for later comparison
-          routeNameRef.current = currentRouteName;
-
-          // Replace the line below to add the tracker from a mobile analytics SDK
-          await trackScreenView(currentRouteName);
+          await analytics().logScreenView({
+            screen_name: currentRouteName,
+            screen_class: currentRouteName,
+          });
         }
+        routeNameRef.current = currentRouteName;
       }}>
       {user.loggedIn ? <RootNavigator /> : <AuthNavigator />}
     </NavigationContainer>

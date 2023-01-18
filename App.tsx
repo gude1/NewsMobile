@@ -22,9 +22,9 @@ import {PersistGate} from 'redux-persist/integration/react';
 import Navigation from './src/navigation/navigation';
 import {persistor, store} from './src/redux/store/store';
 import messaging from '@react-native-firebase/messaging';
-import analytics from '@react-native-firebase/analytics';
 import {configureGoogleSignIn} from './src/utils/google';
 import {setupRemoteConfigDefaults} from './src/utils/remoteconfig';
+
 const App = () => {
   const isDarkMode: boolean = useColorScheme() === 'dark';
 
