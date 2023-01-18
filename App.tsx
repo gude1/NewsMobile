@@ -16,6 +16,7 @@ import {
   useColorScheme,
   ActivityIndicator,
 } from 'react-native';
+import codePush from 'react-native-code-push';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -24,6 +25,8 @@ import {persistor, store} from './src/redux/store/store';
 import messaging from '@react-native-firebase/messaging';
 import {configureGoogleSignIn} from './src/utils/google';
 import {setupRemoteConfigDefaults} from './src/utils/remoteconfig';
+
+let codePushOptions = {checkFrequency: codePush.CheckFrequency.ON_APP_RESUME};
 
 const App = () => {
   const isDarkMode: boolean = useColorScheme() === 'dark';
@@ -56,4 +59,4 @@ const App = () => {
 
 const styles = StyleSheet.create({});
 
-export default App;
+export default codePush(codePushOptions, App);

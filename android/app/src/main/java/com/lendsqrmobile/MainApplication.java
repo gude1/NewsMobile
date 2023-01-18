@@ -10,6 +10,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
 import com.lendsqrmobile.newarchitecture.MainApplicationReactNativeHost;
+import com.microsoft.codepush.react.CodePush;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -34,6 +35,11 @@ public class MainApplication extends Application implements ReactApplication {
         @Override
         protected String getJSMainModuleName() {
           return "index";
+        }
+
+        @Override
+        protected String getJSBundleFile() {
+            return CodePush.getJSBundleFile();
         }
       };
 
