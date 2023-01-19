@@ -30,10 +30,7 @@ export const signInToGoogleAcct = async (
     const userInfo = await GoogleSignin.signIn();
     await Promise.all([
       analytics().setUserId(userInfo.user.id),
-      analytics().setUserProperties({
-        name: userInfo.user.name,
-        email: userInfo.user.email,
-      }),
+      analytics().setUserProperty('account_type', 'test_user'),
     ]);
     succesCb && succesCb(userInfo as User);
   } catch (error: any) {

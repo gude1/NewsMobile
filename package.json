@@ -39,7 +39,7 @@
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
     "@tsconfig/react-native": "^2.0.2",
-    "@types/jest": "^26.0.23",
+    "@types/jest": "^29.2.6",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.21",
     "@types/react-native": "^0.70.6",

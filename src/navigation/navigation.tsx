@@ -39,8 +39,11 @@ const AuthNavigator = (): JSX.Element => {
         headerTitleStyle: {
           fontWeight: '700',
         },
+        headerStyle: {
+          backgroundColor: colors.card,
+        },
         headerRight: () => <ThemeSwitch />,
-        statusBarColor: colors.background,
+        statusBarColor: colors.card,
         statusBarStyle: dark ? 'light' : 'dark',
       }}>
       <Stack.Screen
@@ -72,10 +75,17 @@ const RootNavigator = (): JSX.Element => {
         headerTitleStyle: {
           fontWeight: '700',
         },
-        statusBarColor: colors.background,
+        headerStyle: {
+          backgroundColor: colors.card,
+        },
+        statusBarColor: colors.card,
         statusBarStyle: dark ? 'light' : 'dark',
         headerRight: () => (
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
             <ThemeSwitch />
             <ProfileModal />
           </View>
@@ -117,9 +127,11 @@ const Navigation = () => {
     if (user.theme && user.theme.length > 0) {
       return user.theme == 'light' ? LightTheme : DarkTheme;
     } else {
-      colorScheme == 'light' ? LightTheme : DarkTheme;
+      return colorScheme == 'light' ? LightTheme : DarkTheme;
     }
   };
+
+  console.log(user.theme);
 
   return (
     <NavigationContainer
