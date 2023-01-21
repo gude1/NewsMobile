@@ -19,7 +19,7 @@ import {
 import codePush from 'react-native-code-push';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
-import {PersistGate} from 'redux-persist/integration/react';
+import { PersistGate } from "redux-persist/integration/react";
 import Navigation from './src/navigation/navigation';
 import {persistor, store} from './src/redux/store/store';
 import messaging from '@react-native-firebase/messaging';

@@ -7,7 +7,7 @@ export type UserState = {
   phone?: string;
   image?: string;
   loggedIn?: boolean;
-  dark?: boolean;
+  theme?: string;
 };
 
 const initialState: UserState = {
@@ -15,8 +15,8 @@ const initialState: UserState = {
   email: '',
   phone: '',
   image: '',
-  theme: false,
   loggedIn: false,
+  theme: '',
 };
 
 export const UserSlice = createSlice({
