@@ -16,7 +16,7 @@ import NewsItem from '../components/NewsItem';
 import Container from '../components/Container';
 import {NewsDetailState} from '../redux/slice/NewsDetailSlice';
 import {useAppDispatch, useAppSelector} from '../hooks/hook';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import {getNews} from '../redux/thunk/news';
 
 type NewsListProps = NativeStackScreenProps<
@@ -24,11 +24,7 @@ type NewsListProps = NativeStackScreenProps<
   'NewsList'
 > & {};
 
-export const NewsList = ({
-  navigation,
-  route,
-}: NewsListProps): JSX.Element => {
-
+export const NewsList = ({navigation, route}: NewsListProps): JSX.Element => {
   const {colors, dark} = useTheme();
   const {height} = useWindowDimensions();
   const dispatch = useAppDispatch();

@@ -76,9 +76,9 @@ const RootNavigator = (): JSX.Element => {
           fontWeight: '700',
         },
         headerStyle: {
-          backgroundColor: colors.background,
+          backgroundColor: colors.card,
         },
-        statusBarColor: colors.background,
+        statusBarColor: colors.card,
         statusBarStyle: dark ? 'light' : 'dark',
         headerRight: () => (
           <View
@@ -130,7 +130,6 @@ const Navigation = () => {
       return colorScheme == 'light' ? LightTheme : DarkTheme;
     }
   };
-
 
   return (
     <NavigationContainer
