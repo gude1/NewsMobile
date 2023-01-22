@@ -5,6 +5,7 @@ import {
 } from '@react-native-google-signin/google-signin';
 import crashlytics from '@react-native-firebase/crashlytics';
 import analytics from '@react-native-firebase/analytics';
+import {Alert} from 'react-native';
 
 export const configureGoogleSignIn = (): void => {
   try {
@@ -45,6 +46,7 @@ export const signInToGoogleAcct = async (
       errmsg += 'Something went wrong please try again';
       // some other error happened
     }
+    // Alert.alert(JSON.stringify(error));
     crashlytics().recordError(new Error(JSON.stringify(error)));
     console.error('signInToGoogleAcct', String(error));
     failCb && failCb(errmsg);

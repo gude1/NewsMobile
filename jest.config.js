@@ -23,6 +23,6 @@ module.exports = {
     'node_modules/(?!(@react-native|react-native|react-native-code-push)/)',
   ],
   transformIgnorePatterns: [
-    'node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|rollbar-react-native|@fortawesome|@react-native|@react-navigation|@rneui|/@react-native-google-signin)',
+    'node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|rollbar-react-native|@fortawesome|@react-native|@react-navigation|@rneui|@react-native-google-signin)',
   ],
 };

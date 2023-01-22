@@ -14,11 +14,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "41678902911-fnt6pumlr0qrtlobjbiol948qk2q7id1.apps.googleusercontent.com",
+          "client_id": "41678902911-oci5s788m287pamfietq08d2r393ck27.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.lendsqrmobile",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "41678902911-sclc9g83htpbkopmj2sricsivvk676ic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lendsqrmobile",
+            "certificate_hash": "9a8872579b55283b676244eca7d1a71dd877832c"
           }
         },
         {

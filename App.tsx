@@ -13,18 +13,20 @@ import React, {useEffect, useRef} from 'react';
 import {
   StyleSheet,
   Alert,
+  View,
   useColorScheme,
   ActivityIndicator,
 } from 'react-native';
 import codePush from 'react-native-code-push';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
-import { PersistGate } from "redux-persist/integration/react";
+import {PersistGate} from 'redux-persist/integration/react';
 import Navigation from './src/navigation/navigation';
 import {persistor, store} from './src/redux/store/store';
 import messaging from '@react-native-firebase/messaging';
 import {configureGoogleSignIn} from './src/utils/google';
 import {setupRemoteConfigDefaults} from './src/utils/remoteconfig';
+import RNBootSplash from 'react-native-bootsplash';
 
 let codePushOptions = {checkFrequency: codePush.CheckFrequency.ON_APP_RESUME};
 
@@ -49,7 +51,15 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={<ActivityIndicator />} persistor={persistor} />
+      <PersistGate
+        loading={
+          <View
+            style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+            <ActivityIndicator />
+          </View>
+        }
+        persistor={persistor}
+      />
       <SafeAreaProvider>
         <Navigation />
       </SafeAreaProvider>

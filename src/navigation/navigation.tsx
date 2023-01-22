@@ -17,6 +17,7 @@ import {Button} from '@rneui/themed';
 import crashlytics from '@react-native-firebase/crashlytics';
 import React, {useRef} from 'react';
 import analytics from '@react-native-firebase/analytics';
+import RNBootSplash from 'react-native-bootsplash';
 
 export type RootStackParamList = {
   LogIn: undefined;
@@ -137,6 +138,7 @@ const Navigation = () => {
       ref={navigationRef}
       onReady={() => {
         routeNameRef.current = navigationRef.getCurrentRoute()?.name;
+        RNBootSplash.hide({fade: true});
       }}
       onStateChange={async () => {
         const previousRouteName = routeNameRef.current;
