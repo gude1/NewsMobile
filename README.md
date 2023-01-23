@@ -6,7 +6,7 @@
 
 * [Features](#Features)
 * [Installation](#Installation)
-* [Alternatively download the React Native APK Test App](#Alternatively%download%the%React%Native%APK%Test%App)
+* [Download the React Native APK Test App](#Alternatively%download%the%React%Native%APK%Test%App)
 * [Tech Stack](#Tech%Stack)
 * [Screenshots](#Screenshots)
 
@@ -39,7 +39,7 @@ yarn install
 npx react-native run-android
 ```
     
-## Alternatively download the apk via Firebase app tester
+## Download the apk via Firebase app tester
 
 - [Android APK: ](https://appdistribution.firebase.dev/i/783180eb59a32861)
 
