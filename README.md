@@ -23,6 +23,7 @@
 - A button that throws a runtime error when pressed.
 - Goggle sign in feature 
 - Implemented light and dark mode feature 
+- Added logout feature
 
 
 
@@ -61,3 +62,7 @@ npx react-native run-android
 
 - News Details Screen
 ![](/src/assets/images/newsdetail.jpg)
+
+-Log Out 
+![](/src/assets/images/logout.jpg)
+
