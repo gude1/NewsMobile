@@ -22,6 +22,7 @@
 - Middleware to log all user activities and screen change using Firebase event
 - A button that throws a runtime error when pressed.
 - Goggle sign in feature 
+- Implemented light and dark mode feature 
 
 
 
@@ -50,13 +51,13 @@ npx react-native run-android
 ## Screenshots
 
 - Login screen
-![](/src/images/signin.jpg)
+![](/src/assets/images/signin.jpg)
 
 - Signup screen
-![](/src/images/signup.jpg)
+![](/src/assets/images/signup.jpg)
 
 - News Listing screen
-![](/src/newslist.jpg)
+![](/src/assets/images/newslist.jpg)
 
 - News Details Screen
-![](/src/newsdetail.jpg)
+![](/src/assets/images/newsdetail.jpg)
