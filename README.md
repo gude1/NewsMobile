@@ -63,6 +63,6 @@ npx react-native run-android
 - News Details Screen
 ![](/src/assets/images/newsdetail.jpg)
 
--Log Out 
+- Log Out 
 ![](/src/assets/images/logout.jpg)
 
