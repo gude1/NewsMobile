@@ -41,7 +41,7 @@ npx react-native run-android
     
 ## Download the apk via Firebase app tester
 
-- [Android APK: ](https://appdistribution.firebase.dev/i/783180eb59a32861)
+- [Android APK: ](https://appdistribution.firebase.dev/i/878df552558db865)
 
 ## Tech Stack
 
