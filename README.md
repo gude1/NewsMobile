@@ -43,6 +43,11 @@ npx react-native run-android
 
 - [Android APK: ](https://appdistribution.firebase.dev/i/878df552558db865)
 
+## Download the apk via google drive
+
+-[Android APK: ] (https://drive.google.com/file/d/1N6kp6NwcocgqQCCykseNG1k8PO9k5fKX/view?usp=sharing)
+
+
 ## Tech Stack
 
 **Client:** Bare React-Native, Redux Toolkit, Codepush, Firebase
