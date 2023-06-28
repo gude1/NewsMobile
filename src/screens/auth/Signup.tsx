@@ -51,7 +51,7 @@ const Signup = ({navigation, route}: SignupProps): JSX.Element => {
       setEmailInput({...emailInput, error: emailerr});
     }
     if (phoneerr) {
-      setPhoneInput({...emailInput, error: phoneerr});
+      setPhoneInput({...phoneInput, error: phoneerr});
     }
     if (nameerr || emailerr || phoneerr) {
       return;
