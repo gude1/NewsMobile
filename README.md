@@ -1,4 +1,4 @@
-# lendsqr-fp-news
+# NewsMobile
  FP News is a simple news application built using react-native typescript that allows you to read news provided by the newscatcher api
 
 
