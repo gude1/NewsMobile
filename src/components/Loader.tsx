@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, ImageProps} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Image} from '@rneui/themed';
 import {useTheme} from '@react-navigation/native';

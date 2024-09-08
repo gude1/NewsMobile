@@ -1,10 +1,7 @@
-import {Alert, ScrollView, StyleSheet, View} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {Alert, StyleSheet} from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import React, {useState} from 'react';
 import FormContainer from '../../components/FormContainer';
-import StyledInput from '../../components/StyledInput';
 import ScrollContainer from '../../components/ScrollContainer';
 import {RootStackParamList} from '../../navigation/navigation';
 import {User} from '@react-native-google-signin/google-signin';
@@ -17,8 +14,7 @@ import {signInToGoogleAcct} from '../../utils/google';
 
 type LoginProps = NativeStackScreenProps<RootStackParamList, 'LogIn'>;
 
-const Login = ({navigation, route}: LoginProps): JSX.Element => {
-  const {colors} = useTheme();
+const Login = ({navigation}: LoginProps): JSX.Element => {
   const user = useAppSelector(state => state.user);
   const dispatch = useDispatch();
   const [showdialog, setShowDialog] = useState(false);
@@ -53,7 +49,7 @@ const Login = ({navigation, route}: LoginProps): JSX.Element => {
       <ScrollContainer style={styles.container}>
         <FormContainer
           onSubmitHide
-          title={`Welcome Back`}
+          title={'Welcome Back'}
           description={
             user.email
               ? `Please sign in with your google account: ${user.email}`

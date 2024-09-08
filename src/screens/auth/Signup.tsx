@@ -1,6 +1,5 @@
 import {StyleSheet, Alert} from 'react-native';
-import React, {useState, useRef} from 'react';
-import {useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import FormContainer from '../../components/FormContainer';
 import StyledInput from '../../components/StyledInput';
@@ -24,8 +23,7 @@ type SignupInput = {
   error?: string;
 };
 
-const Signup = ({navigation, route}: SignupProps): JSX.Element => {
-  const {colors} = useTheme();
+const Signup = ({navigation}: SignupProps): JSX.Element => {
   const [showdialog, setShowDialog] = useState(false);
   const user = useAppSelector(state => state.user);
   const [nameInput, setNameInput] = useState<SignupInput>({
@@ -119,7 +117,7 @@ const Signup = ({navigation, route}: SignupProps): JSX.Element => {
           />
           <StyledInput
             label="Phone Number"
-            placeholder="eg: +234-333-333-333"
+            placeholder="eg: 080330444"
             keyboardType="phone-pad"
             value={phoneInput?.value}
             errorMessage={phoneInput?.error}

@@ -5,7 +5,6 @@ import {
 } from '@react-native-google-signin/google-signin';
 import crashlytics from '@react-native-firebase/crashlytics';
 import analytics from '@react-native-firebase/analytics';
-import {Alert} from 'react-native';
 
 export const configureGoogleSignIn = (): void => {
   try {
@@ -71,6 +70,6 @@ export const signOutOfGoogleAcct = async (
 
 export const isSignedIn = async (cB?: (val: boolean) => void) => {
   crashlytics().log('isSignedIn');
-  const isSignedIn = await GoogleSignin.isSignedIn();
-  cB && cB(isSignedIn);
+  const isSignedin = await GoogleSignin.isSignedIn();
+  cB && cB(isSignedin);
 };
